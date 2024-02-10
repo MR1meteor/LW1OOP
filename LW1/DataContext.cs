@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Microsoft.Data.Sqlite;
 
 namespace LW1;
 
@@ -13,6 +14,6 @@ public class DataContext
 
     public IDbConnection CreateConnection()
     {
-        
+        return new SqliteConnection(connectionString);
     }
 }
