@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "Qs/RQEv7izRwl2CGRvfaej8IYGql0i5GsQRCWkO9/rgTJ95+MidQuAsTaXmIyiorCtgYF5j3X2JAxmX5SjjCtg==",
+  "dgSpecHash": "lwEETDLQSJFf5X0z8IRQCmf7ETXkS4i39pU/U66Fa8Dp9Gk3aMQ/9boNkq4DbbjFYU9j9hhuvnZBjQiRrCRb0w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sanek\\source\\repos\\LW1OOP\\LW1\\LW1.csproj",
+  "projectFilePath": "D:\\Uni\\OOP\\LW1OOP\\LW1\\LW1.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://192.168.0.8:5555/v3/index.json'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }
