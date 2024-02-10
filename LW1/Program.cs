@@ -1,3 +1,11 @@
+using LW1.Data;
+using LW1.Repositories;
+using LW1.Repositories.Interfaces;
+using LW1.Services;
+using LW1.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 namespace LW1;
 
 static class Program
@@ -11,6 +19,26 @@ static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+
+        var host = CreateHostBuilder().Build();
+        var serviceProvider = host.Services;
+
+        using var scope = host.Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+        context.Init();
+        
+        Application.Run(serviceProvider.GetRequiredService<Form1>());
+    }
+
+    private static IHostBuilder CreateHostBuilder()
+    {
+        return Host.CreateDefaultBuilder()
+            .ConfigureServices((context, services)=>
+            {
+                services.AddTransient<IAirportRepository, AirportRepository>();
+                services.AddTransient<IAirportService, AirportService>();
+                services.AddTransient<Form1>();
+                services.AddSingleton<DataContext>();
+            });
     }
 }
