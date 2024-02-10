@@ -1,11 +1,17 @@
+using LW1.Db;
+using LW1.Repositories;
+
 namespace LW1;
 
 public partial class Form1 : Form
 
 {
-    public Form1()
+    private IAirportRepository airportRepository;
+    
+    public Form1(IAirportRepository airportRepository)
     {
         InitializeComponent();
+        this.airportRepository = airportRepository;
     }
 
     private void button1_Click(object sender, EventArgs e)
@@ -24,13 +30,15 @@ public partial class Form1 : Form
         MessageBox.Show("Лабораторная работа № 1 \"Аэропорт\" 22ВП3 Бригада №5 Сафронов Новосельцев");
     }
 
-    private void updateData() 
+    private async Task updateData()
     {
+        var airports = await airportRepository.GetAll();
+        
         ListView list = new ListView();
         list.Height = 100;
         list.Width = 100;
         list.Location = new Point(125, 25);
-        foreach(Airport item in Airport.airports)
+        foreach(DbAirport item in airports)
         {
             ListViewItem listItem = new ListViewItem();
             listItem.Text = "faddfsf";
