@@ -5,12 +5,21 @@ namespace LW1.Mapping;
 
 public static class AirportMapper
 {
-    public static Airport MapToService(this DbAirport service)
+    public static Airport MapToService(this DbAirport db)
     {
-        return service == null
+        return db == null
             ? null
-            : new Airport(service.Name, service.Code, service.Runways, service.SoldTickets,
-                service.AverageVisitors, service.MonthlyIncome, service.IncidentsCount);
+            : new Airport
+            {
+                Id = db.Id,
+                Name = db.Name,
+                Code = db.Code,
+                Runways = db.Runways,
+                SoldTickets = db.SoldTickets,
+                AverageVisitors = db.AverageVisitors,
+                MonthlyIncome = db.MonthlyIncome,
+                IncidentsCount = db.IncidentsCount
+            };
     }
 
     public static List<Airport> MapToService(this IEnumerable<DbAirport> db)

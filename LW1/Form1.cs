@@ -1,5 +1,3 @@
-using LW1.Models.Db;
-using LW1.Models.Service;
 using LW1.Services.Interfaces;
 
 namespace LW1;
@@ -52,7 +50,7 @@ public partial class Form1 : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
-        MessageBox.Show("22ВП3 Новосельцев Сафронов \n Аэропорты", "Лабораторная №1");
+        MessageBox.Show("22??3 ??????????? ???????? \n ?????????", "???????????? ?1");
         this.CenterToScreen();
         UpdateData();
     }

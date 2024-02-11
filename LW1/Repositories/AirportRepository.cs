@@ -20,7 +20,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  SELECT * FROM Airport
+                  SELECT * FROM Airports
                   """;
         return (await connection.QueryAsync<DbAirport>(sql)).MapToService();
     }
@@ -29,7 +29,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  SELECT * FROM Airport WHERE Id = @Id
+                  SELECT * FROM Airports WHERE Id = @Id
                   """;
         var parameters = new { Id = id };
         return (await connection.QueryFirstOrDefaultAsync<DbAirport>(sql, parameters)).MapToService();
@@ -39,8 +39,8 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  INSERT INTO Airport (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount)
-                  VALUES (@Name, @Code, @SoldTickets, @AverageVisitors, @MonthlyIncome, @IncidentsCount)
+                  INSERT INTO Airports (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount)
+                  VALUES (@Name, @Code, @Runways, @SoldTickets, @AverageVisitors, @MonthlyIncome, @IncidentsCount)
                   RETURNING *
                   """;
         return (await connection.QuerySingleOrDefaultAsync<DbAirport>(sql, dbAirport)).MapToService();
@@ -50,7 +50,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  UPDATE Airport
+                  UPDATE Airports
                   SET Name = @Name,
                       Code = @Code,
                       Runways = @Runways,
@@ -67,7 +67,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  DELETE FROM Airport WHERE Id = @Id
+                  DELETE FROM Airports WHERE Id = @Id
                   """;
         var parameters = new { Id = id };
         await connection.ExecuteAsync(sql, parameters);

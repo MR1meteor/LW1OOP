@@ -29,13 +29,13 @@ public class DataContext
         {
             var sql = """
                           CREATE TABLE IF NOT EXISTS
-                          Airport (
+                          Airports (
                               Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                               Name TEXT,
                               Code INTEGER,
                               Runways INTEGER,
                               SoldTickets INTEGER,
-                              AveragePassengers REAL,
+                              AverageVisitors REAL,
                               MonthlyIncome REAL,
                               IncidentsCount INTEGER
                           );
