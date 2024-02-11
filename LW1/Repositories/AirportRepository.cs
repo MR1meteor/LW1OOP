@@ -20,7 +20,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  SELECT * FROM Airports
+                  SELECT * FROM Airport
                   """;
         return (await connection.QueryAsync<DbAirport>(sql)).MapToService();
     }
@@ -29,7 +29,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  SELECT * FROM Airports WHERE Id = @Id
+                  SELECT * FROM Airport WHERE Id = @Id
                   """;
         var parameters = new { Id = id };
         return (await connection.QueryFirstOrDefaultAsync<DbAirport>(sql, parameters)).MapToService();
@@ -39,7 +39,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  INSERT INTO Airports (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount)
+                  INSERT INTO Airport (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount)
                   VALUES (@Name, @Code, @SoldTickets, @AverageVisitors, @MonthlyIncome, @IncidentsCount)
                   RETURNING *
                   """;
@@ -50,7 +50,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  UPDATE Airports
+                  UPDATE Airport
                   SET Name = @Name,
                       Code = @Code,
                       Runways = @Runways,
@@ -67,7 +67,7 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  DELETE FROM Airports WHERE Id = @Id
+                  DELETE FROM Airport WHERE Id = @Id
                   """;
         var parameters = new { Id = id };
         await connection.ExecuteAsync(sql, parameters);

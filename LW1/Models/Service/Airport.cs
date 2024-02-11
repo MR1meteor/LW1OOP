@@ -49,10 +49,10 @@ public class Airport
         IncidentsCount = 0;
     }
 
-    public Airport(int id, string name, int code, int runways, int soldTickets,
+    public Airport(string name, int code, int runways, int soldTickets,
         double averageVisitors, double monthlyIncome, int incidentsCount)
     {
-        Id = id;
+        Id = 0;
         Name = name;
         Code = code;
         Runways = runways;

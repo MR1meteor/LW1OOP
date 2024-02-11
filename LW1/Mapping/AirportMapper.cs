@@ -9,7 +9,7 @@ public static class AirportMapper
     {
         return service == null
             ? null
-            : new Airport(service.Id, service.Name, service.Code, service.Runways, service.SoldTickets,
+            : new Airport(service.Name, service.Code, service.Runways, service.SoldTickets,
                 service.AverageVisitors, service.MonthlyIncome, service.IncidentsCount);
     }
 
