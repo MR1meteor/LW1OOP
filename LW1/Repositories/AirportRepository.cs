@@ -25,6 +25,15 @@ public class AirportRepository : IAirportRepository
         return (await connection.QueryAsync<DbAirport>(sql)).MapToService();
     }
 
+    public async Task<int> GetCount()
+    {
+        using var connection = context.CreateConnection();
+        var sql = """
+                  SELECT COUNT(*) FROM Airports
+                  """;
+        return await connection.QuerySingleOrDefaultAsync<int>(sql);
+    }
+
     public async Task<Airport> GetById(int id)
     {
         using var connection = context.CreateConnection();

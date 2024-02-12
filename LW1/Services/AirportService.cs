@@ -20,6 +20,11 @@ public class AirportService : IAirportService
         return await airportRepository.GetAll();
     }
 
+    public async Task<int> GetCount()
+    {
+        return await airportRepository.GetCount();
+    }
+    
     public async Task<Airport> GetById(int id)
     {
         return await airportRepository.GetById(id);

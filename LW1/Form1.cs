@@ -14,9 +14,12 @@ public partial class Form1 : Form
         this.airportService = airportService;
     }
 
-    public void UpdateData()
+    public async void UpdateData()
     {
+        var airportsCount = await airportService.GetCount();
+        Airport.ObjectsCounter = airportsCount;
         var airports = airportService.GetAll().Result;
+        
         if (airports.Count > 0)
         {
             selectedAirport = airports[0];
@@ -119,7 +122,7 @@ public partial class Form1 : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
-        MessageBox.Show("22ВП3 Новосельцев Сафронов \n Аэропорты", "Лабораторная работа №1");
+        MessageBox.Show("22Р’Рџ3 РќРѕРІРѕСЃРµР»СЊС†РµРІ РЎР°С„СЂРѕРЅРѕРІ \n РђСЌСЂРѕРїРѕСЂС‚С‹", "Р›Р°Р±РѕСЂР°С‚РѕСЂРЅР°СЏ СЂР°Р±РѕС‚Р° в„–1");
         this.CenterToScreen();
         UpdateData();
     }

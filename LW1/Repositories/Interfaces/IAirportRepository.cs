@@ -6,6 +6,7 @@ namespace LW1.Repositories.Interfaces;
 public interface IAirportRepository
 {
     Task<List<Airport>> GetAll();
+    Task<int> GetCount();
     Task<Airport> GetById(int id);
     Task<Airport> Add(DbAirport dbAirport);
     Task<Airport> Update(DbAirport dbAirport);
