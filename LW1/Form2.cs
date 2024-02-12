@@ -80,7 +80,7 @@ namespace LW1
                 selectedAirport.SoldTickets = Convert.ToInt32(Math.Round(numericUpDown2.Value, 0));
                 selectedAirport.AverageVisitors = Double.Parse(textBox2.Text);
                 selectedAirport.MonthlyIncome = Convert.ToInt32(textBox3.Text);
-                selectedAirport.IncidentsCount = Convert.ToInt32(Math.Round(numericUpDown2.Value, 0));
+                selectedAirport.IncidentsCount = Convert.ToInt32(Math.Round(numericUpDown3.Value, 0));
                 
                 await airportService.Update(selectedAirport);
             }
