@@ -12,6 +12,8 @@ public class Airport
     public double AverageVisitors { get; set; }
     public double MonthlyIncome { get; set; }
     public int IncidentsCount { get; set; }
+    public bool IsValid => !String.IsNullOrWhiteSpace(Name) && Code >= 0 && Runways >= 0 && SoldTickets >= 0 &&
+                           AverageVisitors >= 0 && MonthlyIncome >= 0 && IncidentsCount >= 0;
 
     public Airport()
     {

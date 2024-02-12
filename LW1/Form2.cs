@@ -1,4 +1,5 @@
-﻿using LW1.Models.Service;
+﻿using LW1.Exceptions;
+using LW1.Models.Service;
 using LW1.Services.Interfaces;
 
 namespace LW1
@@ -67,7 +68,20 @@ namespace LW1
                         Double.Parse(textBox3.Text),
                         Convert.ToInt32(Math.Round(numericUpDown3.Value, 0)));
                 }
-                airportService.Add(newAirport);
+
+                try
+                {
+                    airportService.Add(newAirport);
+                }
+                catch (InvalidValidationException<Airport> ex)
+                {
+                    Console.WriteLine($"{ex.Description} : {ex.ValueObject.ToString()}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
             }
             else
             {
@@ -78,7 +92,20 @@ namespace LW1
                 selectedAirport.AverageVisitors = Double.Parse(textBox2.Text);
                 selectedAirport.MonthlyIncome = Convert.ToInt32(textBox3.Text);
                 selectedAirport.IncidentsCount = Convert.ToInt32(Math.Round(numericUpDown2.Value, 0));
-                airportService.Update(selectedAirport);
+                
+                try
+                {
+                    airportService.Update(selectedAirport);
+                }
+                catch (InvalidValidationException<Airport> ex)
+                {
+                    Console.WriteLine($"{ex.Description} : {ex.ValueObject.ToString()}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
             }
             button2_Click(sender, e);
         }
