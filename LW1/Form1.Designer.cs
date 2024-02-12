@@ -39,6 +39,13 @@ partial class Form1
         label7 = new Label();
         button2 = new Button();
         button3 = new Button();
+        label8 = new Label();
+        label9 = new Label();
+        label10 = new Label();
+        label11 = new Label();
+        label12 = new Label();
+        label13 = new Label();
+        label14 = new Label();
         SuspendLayout();
         // 
         // button1
@@ -54,7 +61,7 @@ partial class Form1
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(94, 133);
+        label1.Location = new Point(356, 126);
         label1.Name = "label1";
         label1.Size = new Size(50, 20);
         label1.TabIndex = 1;
@@ -64,7 +71,7 @@ partial class Form1
         // label2
         // 
         label2.AutoSize = true;
-        label2.Location = new Point(94, 171);
+        label2.Location = new Point(356, 164);
         label2.Name = "label2";
         label2.Size = new Size(50, 20);
         label2.TabIndex = 2;
@@ -74,7 +81,7 @@ partial class Form1
         // label3
         // 
         label3.AutoSize = true;
-        label3.Location = new Point(94, 209);
+        label3.Location = new Point(356, 202);
         label3.Name = "label3";
         label3.Size = new Size(50, 20);
         label3.TabIndex = 3;
@@ -84,7 +91,7 @@ partial class Form1
         // label4
         // 
         label4.AutoSize = true;
-        label4.Location = new Point(94, 248);
+        label4.Location = new Point(356, 241);
         label4.Name = "label4";
         label4.Size = new Size(50, 20);
         label4.TabIndex = 4;
@@ -94,7 +101,7 @@ partial class Form1
         // label5
         // 
         label5.AutoSize = true;
-        label5.Location = new Point(94, 290);
+        label5.Location = new Point(356, 283);
         label5.Name = "label5";
         label5.Size = new Size(50, 20);
         label5.TabIndex = 5;
@@ -104,7 +111,7 @@ partial class Form1
         // label6
         // 
         label6.AutoSize = true;
-        label6.Location = new Point(94, 325);
+        label6.Location = new Point(356, 318);
         label6.Name = "label6";
         label6.Size = new Size(50, 20);
         label6.TabIndex = 6;
@@ -114,7 +121,7 @@ partial class Form1
         // label7
         // 
         label7.AutoSize = true;
-        label7.Location = new Point(94, 357);
+        label7.Location = new Point(356, 350);
         label7.Name = "label7";
         label7.Size = new Size(50, 20);
         label7.TabIndex = 7;
@@ -143,11 +150,88 @@ partial class Form1
         button3.UseVisualStyleBackColor = true;
         button3.Click += button3_Click;
         // 
+        // label8
+        // 
+        label8.AutoSize = true;
+        label8.Location = new Point(234, 126);
+        label8.Name = "label8";
+        label8.Size = new Size(77, 20);
+        label8.TabIndex = 10;
+        label8.Tag = "based";
+        label8.Text = "Название";
+        // 
+        // label9
+        // 
+        label9.AutoSize = true;
+        label9.Location = new Point(276, 164);
+        label9.Name = "label9";
+        label9.Size = new Size(35, 20);
+        label9.TabIndex = 11;
+        label9.Tag = "based";
+        label9.Text = "Код";
+        // 
+        // label10
+        // 
+        label10.AutoSize = true;
+        label10.Location = new Point(178, 202);
+        label10.Name = "label10";
+        label10.Size = new Size(136, 20);
+        label10.TabIndex = 12;
+        label10.Tag = "based";
+        label10.Text = "Количество полос";
+        // 
+        // label11
+        // 
+        label11.AutoSize = true;
+        label11.Location = new Point(178, 241);
+        label11.Name = "label11";
+        label11.Size = new Size(133, 20);
+        label11.TabIndex = 13;
+        label11.Tag = "based";
+        label11.Text = "Продано билетов";
+        // 
+        // label12
+        // 
+        label12.AutoSize = true;
+        label12.Location = new Point(74, 283);
+        label12.Name = "label12";
+        label12.Size = new Size(240, 20);
+        label12.TabIndex = 14;
+        label12.Tag = "based";
+        label12.Text = "Среднее количество пассажиров";
+        // 
+        // label13
+        // 
+        label13.AutoSize = true;
+        label13.Location = new Point(193, 318);
+        label13.Name = "label13";
+        label13.Size = new Size(118, 20);
+        label13.TabIndex = 15;
+        label13.Tag = "based";
+        label13.Text = "Доход за месяц";
+        // 
+        // label14
+        // 
+        label14.AutoSize = true;
+        label14.Location = new Point(115, 350);
+        label14.Name = "label14";
+        label14.Size = new Size(196, 20);
+        label14.TabIndex = 16;
+        label14.Tag = "based";
+        label14.Text = "Количество происшествий";
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
+        Controls.Add(label14);
+        Controls.Add(label13);
+        Controls.Add(label12);
+        Controls.Add(label11);
+        Controls.Add(label10);
+        Controls.Add(label9);
+        Controls.Add(label8);
         Controls.Add(button3);
         Controls.Add(button2);
         Controls.Add(label7);
@@ -177,4 +261,11 @@ partial class Form1
     private Label label7;
     private Button button2;
     private Button button3;
+    private Label label8;
+    private Label label9;
+    private Label label10;
+    private Label label11;
+    private Label label12;
+    private Label label13;
+    private Label label14;
 }

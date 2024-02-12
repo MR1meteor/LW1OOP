@@ -77,7 +77,7 @@ public partial class Form1 : Form
                     label4.Text = selectedAirport.SoldTickets.ToString();
                     label5.Text = selectedAirport.AverageVisitors.ToString();
                     label6.Text = selectedAirport.MonthlyIncome.ToString();
-                    label7.Text = selectedAirport.IncidentsCount.ToString();
+                    label7.Text = Convert.ToString(selectedAirport.IncidentsCount, 16);
                 }
             }
         }
