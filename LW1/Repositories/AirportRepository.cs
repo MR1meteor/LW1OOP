@@ -65,6 +65,7 @@ public class AirportRepository : IAirportRepository
                       Runways = @Runways,
                       SoldTickets = @SoldTickets,
                       AverageVisitors = @AverageVisitors,
+                      MonthlyIncome = @MonthlyIncome,
                       IncidentsCount = @IncidentsCount
                   WHERE Id = @Id
                   RETURNING *
