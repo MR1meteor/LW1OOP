@@ -43,9 +43,9 @@ partial class Form1
         // 
         // button1
         // 
-        button1.Location = new Point(302, 209);
+        button1.Location = new Point(537, 12);
         button1.Name = "button1";
-        button1.Size = new Size(202, 29);
+        button1.Size = new Size(251, 47);
         button1.TabIndex = 0;
         button1.Text = "Добавить аэропорт";
         button1.UseVisualStyleBackColor = true;
@@ -123,23 +123,23 @@ partial class Form1
         // 
         // button2
         // 
-        button2.Location = new Point(302, 280);
+        button2.Location = new Point(251, 12);
         button2.Name = "button2";
-        button2.Size = new Size(126, 41);
+        button2.Size = new Size(280, 47);
         button2.TabIndex = 8;
         button2.Tag = "based";
-        button2.Text = "Редактировать";
+        button2.Text = "Редактировать данные";
         button2.UseVisualStyleBackColor = true;
         button2.Click += button2_Click;
         // 
         // button3
         // 
-        button3.Location = new Point(302, 348);
+        button3.Location = new Point(12, 12);
         button3.Name = "button3";
-        button3.Size = new Size(126, 38);
+        button3.Size = new Size(233, 47);
         button3.TabIndex = 9;
         button3.Tag = "based";
-        button3.Text = "Удалить";
+        button3.Text = "Удалить аэропорт";
         button3.UseVisualStyleBackColor = true;
         button3.Click += button3_Click;
         // 

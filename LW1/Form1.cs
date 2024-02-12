@@ -16,36 +16,49 @@ public partial class Form1 : Form
 
     public async void UpdateData()
     {
-        var airportsCount = await airportService.GetCount();
-        Airport.ObjectsCounter = airportsCount;
         var airports = airportService.GetAll().Result;
-        
+
         if (airports.Count > 0)
         {
             selectedAirport = airports[0];
+            button2.Enabled = true;
+            button3.Enabled = true;
             showLabels();
-            button1.Location = new Point(690, 13);
-            button1.Width = 100;
-            button1.Height = 60;
             for (int i = 0; i < airports.Count; i++)
             {
-                Label label = new Label
+                Label label = new()
                 {
                     Text = airports[i].Id.ToString()
                 };
                 label.MouseClick += ClickHandler;
                 label.Tag = "removable";
+                label.TextAlign = ContentAlignment.TopCenter;
+                label.MouseEnter += EnterHandler;
+                label.MouseLeave += LeaveHandler;
                 label.Location = new Point(690, 100 + (i + 1) * 30);
                 this.Controls.Add(label);
             }
         }
         else
         {
-            button1.Location = new Point(302, 209);
-            button1.Width = 202;
-            button1.Height = 29;
+            button2.Enabled = false;
+            button3.Enabled = false;
             hideLabels();
         }
+    }
+
+    private void EnterHandler(object sender, EventArgs e)
+    {
+        var item = sender as Label;
+        item.BackColor = Color.FromArgb(30, Color.Black);
+        this.Cursor = Cursors.Hand;
+    }
+
+    private void LeaveHandler(object sender, EventArgs e)
+    {
+        var item = sender as Label;
+        item.BackColor = Color.Transparent;
+        this.Cursor = Cursors.Default;
     }
 
     private void showLabels()
@@ -67,17 +80,6 @@ public partial class Form1 : Form
                     label7.Text = selectedAirport.IncidentsCount.ToString();
                 }
             }
-            else if (element is Button)
-            {
-                Button item = element as Button;
-                if (item.Tag is not null)
-                {
-                    if (item.Tag.ToString() == "based")
-                    {
-                        item.Show();
-                    }
-                }
-            }
         }
     }
     private void hideLabels()
@@ -94,17 +96,6 @@ public partial class Form1 : Form
                 else if (item.Tag.ToString() == "based")
                 {
                     item.Hide();
-                }
-            }
-            else if (element is Button)
-            {
-                Button item = element as Button;
-                if (item.Tag is not null)
-                {
-                    if (item.Tag.ToString() == "based")
-                    {
-                        item.Hide();
-                    }
                 }
             }
         }
@@ -149,6 +140,7 @@ public partial class Form1 : Form
             }
         }
         airportService.Delete(selectedAirport.Id);
+        UpdateData();
     }
 
     private void button2_Click(object sender, EventArgs e)
