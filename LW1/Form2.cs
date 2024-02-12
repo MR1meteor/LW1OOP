@@ -69,19 +69,8 @@ namespace LW1
                         Double.Parse(textBox3.Text),
                         Convert.ToInt32(Math.Round(numericUpDown3.Value, 0)));
                 }
-
-                try
-                {
-                    await airportService.Add(newAirport);
-                }
-                catch (InvalidValidationException<Airport> ex)
-                {
-                    Win32.MessageBox(0, ex.ValueObject.ToString(), ex.Description, 0);
-                }
-                catch (Exception ex)
-                {
-                    Win32.MessageBox(0, ex.Message, "Exception", 0);
-                }
+                
+                await airportService.Add(newAirport);
             }
             else
             {
@@ -93,18 +82,7 @@ namespace LW1
                 selectedAirport.MonthlyIncome = Convert.ToInt32(textBox3.Text);
                 selectedAirport.IncidentsCount = Convert.ToInt32(Math.Round(numericUpDown2.Value, 0));
                 
-                try
-                {
-                    await airportService.Update(selectedAirport);
-                }
-                catch (InvalidValidationException<Airport> ex)
-                {
-                    Win32.MessageBox(0, ex.ValueObject.ToString(), ex.Description, 0);
-                }
-                catch (Exception ex)
-                {
-                    Win32.MessageBox(0, ex.Message, "Exception", 0);
-                }
+                await airportService.Update(selectedAirport);
             }
             button2_Click(sender, e);
         }
