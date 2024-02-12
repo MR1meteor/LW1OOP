@@ -1,4 +1,5 @@
 ﻿using LW1.Exceptions;
+using LW1.External;
 using LW1.Models.Service;
 using LW1.Services.Interfaces;
 
@@ -40,7 +41,7 @@ namespace LW1
         }
 
         //Нажатие на кнопку "Готово"
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if (!isUpdate)
             {
@@ -71,16 +72,15 @@ namespace LW1
 
                 try
                 {
-                    airportService.Add(newAirport);
+                    await airportService.Add(newAirport);
                 }
                 catch (InvalidValidationException<Airport> ex)
                 {
-                    Console.WriteLine($"{ex.Description} : {ex.ValueObject.ToString()}");
+                    Win32.MessageBox(0, ex.ValueObject.ToString(), ex.Description, 0);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
-                    throw;
+                    Win32.MessageBox(0, ex.Message, "Exception", 0);
                 }
             }
             else
@@ -95,16 +95,15 @@ namespace LW1
                 
                 try
                 {
-                    airportService.Update(selectedAirport);
+                    await airportService.Update(selectedAirport);
                 }
                 catch (InvalidValidationException<Airport> ex)
                 {
-                    Console.WriteLine($"{ex.Description} : {ex.ValueObject.ToString()}");
+                    Win32.MessageBox(0, ex.ValueObject.ToString(), ex.Description, 0);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
-                    throw;
+                    Win32.MessageBox(0, ex.Message, "Exception", 0);
                 }
             }
             button2_Click(sender, e);
