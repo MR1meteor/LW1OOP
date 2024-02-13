@@ -17,7 +17,7 @@ public partial class Form1 : Form
     public async void UpdateData()
     {
         var airports = airportService.GetAll().Result;
-
+        hideLabels();
         if (airports.Count > 0)
         {
             selectedAirport = airports[0];
@@ -43,7 +43,6 @@ public partial class Form1 : Form
         {
             button2.Enabled = false;
             button3.Enabled = false;
-            hideLabels();
         }
     }
 
@@ -71,15 +70,15 @@ public partial class Form1 : Form
                 if (item.Tag == "based")
                 {
                     item.Show();
-                    label1.Text = selectedAirport.Name;
-                    label2.Text = selectedAirport.Code.ToString();
-                    label3.Text = selectedAirport.Runways.ToString();
-                    label4.Text = selectedAirport.SoldTickets.ToString();
-                    label5.Text = selectedAirport.AverageVisitors.ToString();
-                    label6.Text = selectedAirport.MonthlyIncome.ToString();
-                    label7.Text = Convert.ToString(selectedAirport.IncidentsCount, 16);
                 }
             }
+            label1.Text = selectedAirport.Name;
+            label2.Text = selectedAirport.Code.ToString();
+            label3.Text = selectedAirport.Runways.ToString();
+            label4.Text = selectedAirport.SoldTickets.ToString();
+            label5.Text = selectedAirport.AverageVisitors.ToString();
+            label6.Text = selectedAirport.MonthlyIncome.ToString();
+            label7.Text = Convert.ToString(selectedAirport.IncidentsCount, 16);
         }
     }
     private void hideLabels()
@@ -89,14 +88,8 @@ public partial class Form1 : Form
             if (element is Label)
             {
                 Label item = element as Label;
-                if (item.Tag.ToString() == "removable")
-                {
-                    this.Controls.Remove(item);
-                }
-                else if (item.Tag.ToString() == "based")
-                {
-                    item.Hide();
-                }
+                //this.Controls.Remove(item);
+                item.Hide();
             }
         }
     }
@@ -128,17 +121,18 @@ public partial class Form1 : Form
 
     private void button3_Click(object sender, EventArgs e)
     {
-        foreach (var element in this.Controls)
-        {
-            if (element is Label)
-            {
-                Label item = element as Label;
-                if (item.Text == selectedAirport.Id.ToString())
-                {
-                    this.Controls.Remove(item);
-                }
-            }
-        }
+        hideLabels();
+        //foreach (var element in this.Controls)
+        //{
+        //    if (element is Label)
+        //    {
+        //        Label item = element as Label;
+        //        if (item.Text == selectedAirport.Id.ToString())
+        //        {
+        //            this.Controls.Remove(item);
+        //        }
+        //    }
+        //}
         airportService.Delete(selectedAirport.Id);
         UpdateData();
     }
