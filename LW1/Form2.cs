@@ -48,41 +48,97 @@ namespace LW1
                 Airport newAirport;
                 if (textBox1.Text == "")
                 {
-                    newAirport = new Airport();
+                    try
+                    {
+                        newAirport = new Airport();
+                    }
+                    catch (FormatException)
+                    {
+                        throw new CustomInvalidCastException("Invalid cast when create Airport obj (Add)");
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
                 else if (textBox4.Text == "")
                 {
-                    newAirport = new Airport(textBox1.Text);
+                    try
+                    {
+                        newAirport = new Airport(textBox1.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        throw new CustomInvalidCastException("Invalid cast when create Airport obj (Add)");
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    
                 }
                 else if (numericUpDown1.Value == 0 || numericUpDown2.Value == 0 || numericUpDown3.Value == 0 ||
                     textBox2.Text == "" || textBox3.Text == "")
                 {
-                    newAirport = new Airport(textBox1.Text, Int32.Parse(textBox4.Text));
+                    try
+                    {
+                        newAirport = new Airport(textBox1.Text, Int32.Parse(textBox4.Text));
+                    }
+                    catch (FormatException)
+                    {
+                        throw new CustomInvalidCastException("Invalid cast when create Airport obj (Add)");
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
                 else
                 {
-                    newAirport = new Airport(textBox1.Text,
-                        Int32.Parse(textBox4.Text),
-                        Convert.ToInt32(Math.Round(numericUpDown1.Value, 0)),
-                        Convert.ToInt32(Math.Round(numericUpDown2.Value, 0)),
-                        Double.Parse(textBox2.Text),
-                        Double.Parse(textBox3.Text),
-                        Convert.ToInt32(Math.Round(numericUpDown3.Value, 0)));
+                    try
+                    {
+                        newAirport = new Airport(textBox1.Text,
+                            Int32.Parse(textBox4.Text),
+                            Convert.ToInt32(Math.Round(numericUpDown1.Value, 0)),
+                            Convert.ToInt32(Math.Round(numericUpDown2.Value, 0)),
+                            Double.Parse(textBox2.Text),
+                            Double.Parse(textBox3.Text),
+                            Convert.ToInt32(Math.Round(numericUpDown3.Value, 0)));
+                    }
+                    catch (FormatException)
+                    {
+                        throw new CustomInvalidCastException("Invalid cast when create Airport obj (Add)");
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
                 
                 await airportService.Add(newAirport);
             }
             else
             {
-                selectedAirport.Name = textBox1.Text;
-                selectedAirport.Code = Int32.Parse(textBox4.Text);
-                selectedAirport.Runways = Convert.ToInt32(Math.Round(numericUpDown1.Value, 0));
-                selectedAirport.SoldTickets = Convert.ToInt32(Math.Round(numericUpDown2.Value, 0));
-                selectedAirport.AverageVisitors = Double.Parse(textBox2.Text);
-                selectedAirport.MonthlyIncome = Convert.ToInt32(textBox3.Text);
-                selectedAirport.IncidentsCount = Convert.ToInt32(Math.Round(numericUpDown3.Value, 0));
-                
-                await airportService.Update(selectedAirport);
+                try
+                {
+                    selectedAirport.Name = textBox1.Text;
+                    selectedAirport.Code = Int32.Parse(textBox4.Text);
+                    selectedAirport.Runways = Convert.ToInt32(Math.Round(numericUpDown1.Value, 0));
+                    selectedAirport.SoldTickets = Convert.ToInt32(Math.Round(numericUpDown2.Value, 0));
+                    selectedAirport.AverageVisitors = Double.Parse(textBox2.Text);
+                    selectedAirport.MonthlyIncome = Convert.ToInt32(textBox3.Text);
+                    selectedAirport.IncidentsCount = Convert.ToInt32(Math.Round(numericUpDown3.Value, 0));
+
+                    await airportService.Update(selectedAirport);
+                }
+                catch (FormatException)
+                {
+                    throw new CustomInvalidCastException("Invalid cast when create Airport obj (Update)");
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
             button2_Click(sender, e);
         }
@@ -93,7 +149,6 @@ namespace LW1
             this.sender.UpdateData();
             this.sender.Show();
             this.Close();
-
         }
     }
 }

@@ -74,7 +74,7 @@ static class Program
                     Win32.MessageBox(0, ive.ValueObject.ToString(), ive.Description, 0);
                     break;
                 case CustomInvalidCastException cice:
-                    Win32.MessageBox(0, cice.StackTrace, cice.StackTrace, 0);
+                    Win32.MessageBox(0, cice.AdditionalInfo, cice.Message, 0);
                     break;
                 default:
                     Win32.MessageBox(0, ex.Message, "Untyped exception", 0);
