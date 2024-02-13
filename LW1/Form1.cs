@@ -7,6 +7,8 @@ public partial class Form1 : Form
 {
     private IAirportService airportService;
     private Airport selectedAirport;
+    private List<Label> addedAirports = new List<Label>();
+
 
     public Form1(IAirportService airportService)
     {
@@ -36,6 +38,7 @@ public partial class Form1 : Form
                 label.MouseEnter += EnterHandler;
                 label.MouseLeave += LeaveHandler;
                 label.Location = new Point(690, 100 + (i + 1) * 30);
+                addedAirports.Add(label);
                 this.Controls.Add(label);
             }
         }
@@ -73,23 +76,31 @@ public partial class Form1 : Form
                 }
             }
             label1.Text = selectedAirport.Name;
-            label2.Text = selectedAirport.Code.ToString();
-            label3.Text = selectedAirport.Runways.ToString();
-            label4.Text = selectedAirport.SoldTickets.ToString();
-            label5.Text = selectedAirport.AverageVisitors.ToString();
-            label6.Text = selectedAirport.MonthlyIncome.ToString();
-            label7.Text = Convert.ToString(selectedAirport.IncidentsCount, 16);
+                    label2.Text = selectedAirport.Code.ToString();
+                    label3.Text = selectedAirport.Runways.ToString();
+                    label4.Text = selectedAirport.SoldTickets.ToString();
+                    label5.Text = selectedAirport.AverageVisitors.ToString();
+                    label6.Text = selectedAirport.MonthlyIncome.ToString();
+                    label7.Text = Convert.ToString(selectedAirport.IncidentsCount, 16);
         }
     }
     private void hideLabels()
     {
+        while (addedAirports.Count > 0)
+        {
+            Label item = addedAirports.Last();
+            this.Controls.Remove(item);
+            addedAirports.Remove(item);
+        }
         foreach (var element in this.Controls)
         {
             if (element is Label)
             {
                 Label item = element as Label;
-                //this.Controls.Remove(item);
-                item.Hide();
+                if (item.Tag.ToString() == "based")
+                {
+                    item.Hide();
+                }
             }
         }
     }
