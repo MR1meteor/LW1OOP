@@ -1,6 +1,7 @@
 using LW1.Data;
 using LW1.Exceptions;
 using LW1.External;
+using LW1.Forms;
 using LW1.Models.Service;
 using LW1.Repositories;
 using LW1.Repositories.Interfaces;
@@ -35,7 +36,7 @@ static class Program
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         context.Init();
         
-        Application.Run(serviceProvider.GetRequiredService<Form1>());
+        Application.Run(serviceProvider.GetRequiredService<Forms.MainForm>());
     }
 
     private static IHostBuilder CreateHostBuilder()
@@ -45,7 +46,7 @@ static class Program
             {
                 services.AddTransient<IAirportRepository, AirportRepository>();
                 services.AddTransient<IAirportService, AirportService>();
-                services.AddTransient<Form1>();
+                services.AddTransient<MainForm>();
                 services.AddSingleton<DataContext>();
             });
     }

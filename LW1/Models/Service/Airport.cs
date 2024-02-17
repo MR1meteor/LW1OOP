@@ -51,8 +51,8 @@ public class Airport
         IncidentsCount = 0;
     }
 
-    public Airport(string name, int code, int runways, int soldTickets,
-        double averageVisitors, double monthlyIncome, int incidentsCount)
+    public Airport(string name, int code, int runways = default, int soldTickets = default,
+        double averageVisitors = default, double monthlyIncome = default, int incidentsCount = default)
     {
         Id = 0;
         Name = name;
