@@ -52,11 +52,15 @@ namespace LW1.Forms
             {
                 addAirport();
                 airportsList.Enabled=true;
+                addBtn.Enabled=true;
+                delBtn.Show();
             }
             else if(saveBtn.Tag.ToString() == "save")
             {
                 saveAirport();
+                editModeBtn.Enabled=true;
             }
+            saveBtn.Tag = "save";
         }
 
         private async void addAirport()
@@ -113,6 +117,7 @@ namespace LW1.Forms
             currentAirport.MonthlyIncome = checkDouble(incomeTextbox);
             currentAirport.IncidentsCount = checkInt(incidentsTextbox);
             await airportService.Update(currentAirport);
+            await updateData();
             
 
         }
@@ -138,6 +143,8 @@ namespace LW1.Forms
             {
                 airportsList.Items.Add(airport.Name);
             }
+            selectedId = currentAirports.Count - 1;
+            FillDataSingle(currentAirports[selectedId]);
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
