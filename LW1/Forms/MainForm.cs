@@ -43,22 +43,22 @@ namespace LW1.Forms
             ticketsTextbox.Text = "";
             incomeTextbox.Text = "";
             incidentsTextbox.Text = "";
-            
+
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            if (saveBtn.Tag.ToString() == "add") 
+            if (saveBtn.Tag.ToString() == "add")
             {
                 addAirport();
-                airportsList.Enabled=true;
-                addBtn.Enabled=true;
+                airportsList.Enabled = true;
+                addBtn.Enabled = true;
                 delBtn.Show();
             }
-            else if(saveBtn.Tag.ToString() == "save")
+            else if (saveBtn.Tag.ToString() == "save")
             {
                 saveAirport();
-                editModeBtn.Enabled=true;
+                editModeBtn.Enabled = true;
             }
             saveBtn.Tag = "save";
         }
@@ -66,7 +66,7 @@ namespace LW1.Forms
         private async void addAirport()
         {
             Airport newAirport;
-            if(nameTextbox.Text == "") 
+            if (nameTextbox.Text == "")
             {
                 nameTextbox.BackColor = Color.Coral;
                 return;
@@ -75,7 +75,7 @@ namespace LW1.Forms
             {
                 newAirport = new(nameTextbox.Text);
             }
-            else if(runwaysTextbox.Text == "" || touristsTextbox.Text == "" || ticketsTextbox.Text == ""||
+            else if (runwaysTextbox.Text == "" || touristsTextbox.Text == "" || ticketsTextbox.Text == "" ||
                 incomeTextbox.Text == "" || incidentsTextbox.Text == "")
             {
                 newAirport = new(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
@@ -102,9 +102,10 @@ namespace LW1.Forms
             return field.Text == "" ? default : Double.Parse(field.Text);
         }
 
-        private async void saveAirport() {
+        private async void saveAirport()
+        {
             Airport currentAirport = currentAirports[selectedId];
-            if(nameTextbox.Text == "")
+            if (nameTextbox.Text == "")
             {
                 nameTextbox.BackColor = Color.Coral;
                 return;
@@ -118,7 +119,7 @@ namespace LW1.Forms
             currentAirport.IncidentsCount = checkInt(incidentsTextbox);
             await airportService.Update(currentAirport);
             await updateData();
-            
+
 
         }
         private void editAirport(object sender, EventArgs e)
@@ -139,7 +140,7 @@ namespace LW1.Forms
         {
             airportsList.Clear();
             currentAirports = await airportService.GetAll();
-            foreach(Airport airport in currentAirports)
+            foreach (Airport airport in currentAirports)
             {
                 airportsList.Items.Add(airport.Name);
             }

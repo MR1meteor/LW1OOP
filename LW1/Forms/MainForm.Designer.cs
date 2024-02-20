@@ -243,7 +243,9 @@
             // 
             // airportsList
             // 
-            airportsList.Location = new Point(16, 12);
+            airportsList.Alignment = ListViewAlignment.Left;
+            airportsList.LabelWrap = false;
+            airportsList.Location = new Point(12, 12);
             airportsList.Name = "airportsList";
             airportsList.Size = new Size(374, 426);
             airportsList.TabIndex = 1;
