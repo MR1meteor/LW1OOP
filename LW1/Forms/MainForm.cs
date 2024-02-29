@@ -1,4 +1,6 @@
-﻿using LW1.Models.Service;
+﻿using LW1.Event;
+using LW1.EventArgsModels;
+using LW1.Models.Service;
 using LW1.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,14 +16,18 @@ namespace LW1.Forms
 {
     public partial class MainForm : Form
     {
+        public delegate void EventHandle(object? sender, EventArgsModel message);
+        public static event EventHandle OnEvent;
         private readonly IAirportService airportService;
         private List<Airport> currentAirports;
         private int selectedId;
+        private EventArgsModel message = new("");
 
         public MainForm(IAirportService airportService)
         {
             InitializeComponent();
             this.airportService = airportService;
+            EventListener listener = new();
         }
 
         private void addBtnClick(object sender, EventArgs e)
@@ -54,11 +60,15 @@ namespace LW1.Forms
                 airportsList.Enabled = true;
                 addBtn.Enabled = true;
                 delBtn.Show();
+                message.Message = "Объект добавлен";
+                OnEvent?.Invoke(this, message);
             }
             else if (saveBtn.Tag.ToString() == "save")
             {
                 saveAirport();
                 editModeBtn.Enabled = true;
+                message.Message = "Объект сохранён";
+                OnEvent?.Invoke(this, message);
             }
             saveBtn.Tag = "save";
         }
@@ -134,6 +144,8 @@ namespace LW1.Forms
             await airportService.Delete(currentAirports[selectedId].Id);
             clearTextboxes();
             await updateData();
+            message.Message = "Объект удалён";
+            OnEvent?.Invoke(this, message);
         }
 
         private async Task updateData()
