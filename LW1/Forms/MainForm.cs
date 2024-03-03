@@ -57,16 +57,11 @@ namespace LW1.Forms
             if (saveBtn.Tag.ToString() == "add")
             {
                 addAirport();
-                airportsList.Enabled = true;
-                addBtn.Enabled = true;
-                delBtn.Show();
             }
             else if (saveBtn.Tag.ToString() == "save")
             {
                 saveAirport();
-                editModeBtn.Enabled = true;
             }
-            saveBtn.Tag = "save";
         }
 
         private async void addAirport()
@@ -97,7 +92,11 @@ namespace LW1.Forms
             OnEvent?.Invoke(this, message);
             await airportService.Add(newAirport);
             nameTextbox.BackColor = DefaultBackColor;
+            saveBtn.Tag = "save";
             await updateData();
+            airportsList.Enabled = true;
+            addBtn.Enabled = true;
+            delBtn.Show();
         }
 
         private int checkInt(TextBox field)
@@ -125,7 +124,7 @@ namespace LW1.Forms
             currentAirport.AverageVisitors = checkDouble(touristsTextbox);
             currentAirport.MonthlyIncome = checkDouble(incomeTextbox);
             currentAirport.IncidentsCount = checkInt(incidentsTextbox);
-
+            editModeBtn.Enabled = true;
             message.Message = "Объект сохранён";
             OnEvent?.Invoke(this, message);
             await airportService.Update(currentAirport);
