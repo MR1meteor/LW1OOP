@@ -60,15 +60,11 @@ namespace LW1.Forms
                 airportsList.Enabled = true;
                 addBtn.Enabled = true;
                 delBtn.Show();
-                message.Message = "Объект добавлен";
-                OnEvent?.Invoke(this, message);
             }
             else if (saveBtn.Tag.ToString() == "save")
             {
                 saveAirport();
                 editModeBtn.Enabled = true;
-                message.Message = "Объект сохранён";
-                OnEvent?.Invoke(this, message);
             }
             saveBtn.Tag = "save";
         }
@@ -97,6 +93,8 @@ namespace LW1.Forms
                     checkInt(ticketsTextbox), checkDouble(touristsTextbox), checkDouble(incomeTextbox),
                     checkInt(incidentsTextbox));
             }
+            message.Message = "Объект добавлен";
+            OnEvent?.Invoke(this, message);
             await airportService.Add(newAirport);
             nameTextbox.BackColor = DefaultBackColor;
             await updateData();
@@ -127,6 +125,9 @@ namespace LW1.Forms
             currentAirport.AverageVisitors = checkDouble(touristsTextbox);
             currentAirport.MonthlyIncome = checkDouble(incomeTextbox);
             currentAirport.IncidentsCount = checkInt(incidentsTextbox);
+
+            message.Message = "Объект сохранён";
+            OnEvent?.Invoke(this, message);
             await airportService.Update(currentAirport);
             await updateData();
 
