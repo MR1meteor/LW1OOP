@@ -1,16 +1,8 @@
-﻿using LW1.Event;
+﻿using System.Diagnostics;
+using LW1.Event;
 using LW1.EventArgsModels;
 using LW1.Models.Service;
 using LW1.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace LW1.Forms
 {
@@ -217,14 +209,52 @@ namespace LW1.Forms
                 airportArray[i] = item;
                 currentAirports.Add(item);
             }
-            /*
-             * Тут реализовать эти выборки
-             */
 
+            var sw = new Stopwatch();
+            sw.Start();
+            IterateCollection(airportArray);
+            sw.Stop();
+            showResult("Array", "Последовательно", sw.Elapsed.TotalMilliseconds);
+            
+            sw.Restart();
+            IterateCollection(currentAirports);
+            sw.Stop();
+            showResult("List", "Последовательно", sw.Elapsed.TotalMilliseconds);
+            
+            sw.Restart();
+            IterateCollectionRandom(airportArray);
+            sw.Stop();
+            showResult("Array", "Рандомно", sw.Elapsed.TotalMilliseconds);
+            
+            sw.Restart();
+            IterateCollectionRandom(currentAirports);
+            sw.Stop();
+            showResult("List", "Рандомно", sw.Elapsed.TotalMilliseconds);
         }
 
+        private void IterateCollection(IEnumerable<Airport> collection)
+        {
+            Airport current;
+            
+            foreach (var item in collection)
+            {
+                current = item;
+            }
+        }
+
+        private void IterateCollectionRandom(IEnumerable<Airport> collection)
+        {
+            Airport current;
+            var random = new Random();
+            
+            for (int i = 0; i < collection.Count(); i++)
+            {
+                current = collection.ElementAt(random.Next(0, collection.Count()));
+            }
+        }
+        
         //Функция для отображения результата замера
-        private void showResult(string container, string type,int time)
+        private void showResult(string container, string type, double time)
         {
             string[] item = {container, type, time.ToString()};
             var listViewItem = new ListViewItem(item);
