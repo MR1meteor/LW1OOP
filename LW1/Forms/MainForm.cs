@@ -20,6 +20,7 @@ namespace LW1.Forms
         public static event EventHandle OnEvent;
         private readonly IAirportService airportService;
         private List<Airport> currentAirports;
+        private Airport[] airportArray = new Airport[100000];
         private int selectedId;
         private EventArgsModel message = new("");
 
@@ -62,6 +63,20 @@ namespace LW1.Forms
             {
                 saveAirport();
             }
+            else if (saveBtn.Tag.ToString() == "back")
+            {
+                returnToStartAsync();
+            }
+        }
+
+        private async Task returnToStartAsync()
+        {
+            delBtn.Show();
+            airportsList.Items.Clear();
+            airportsList.View = View.List;
+            saveBtn.Tag = "save";
+            saveBtn.Text = "Сохранить";
+            await updateData();
         }
 
         private async void addAirport()
@@ -182,6 +197,38 @@ namespace LW1.Forms
             incomeTextbox.Text = airport.MonthlyIncome.ToString();
             incomeTextbox.Text = airport.IncidentsCount.ToString();
 
+        }
+
+        private void CompareArList_Click(object sender, EventArgs e)
+        {
+            saveBtn.Tag = "back";
+            delBtn.Hide();
+            saveBtn.Text = "Назад";
+            airportsList.Items.Clear();
+            airportsList.View = View.Details;
+            airportsList.Columns.Add("Контейнер", 100, HorizontalAlignment.Center);
+            airportsList.Columns.Add("Тип выборки", 170, HorizontalAlignment.Center);
+            airportsList.Columns.Add("Время", 100, HorizontalAlignment.Center);
+            currentAirports.Clear();
+            Array.Clear(airportArray);
+            for (int i = 0; i < 100000; i++)
+            {
+                Airport item = new();
+                airportArray[i] = item;
+                currentAirports.Add(item);
+            }
+            /*
+             * Тут реализовать эти выборки
+             */
+
+        }
+
+        //Функция для отображения результата замера
+        private void showResult(string container, string type,int time)
+        {
+            string[] item = {container, type, time.ToString()};
+            var listViewItem = new ListViewItem(item);
+            airportsList.Items.Add(listViewItem);
         }
     }
 }

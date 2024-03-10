@@ -49,6 +49,7 @@
             saveBtn = new Button();
             delBtn = new Button();
             airportsList = new ListView();
+            CompareArList = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)addBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editModeBtn).BeginInit();
@@ -57,6 +58,7 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(CompareArList);
             panel1.Controls.Add(addBtn);
             panel1.Controls.Add(editModeBtn);
             panel1.Controls.Add(incidentsTextbox);
@@ -75,9 +77,10 @@
             panel1.Controls.Add(nameLabel);
             panel1.Controls.Add(saveBtn);
             panel1.Controls.Add(delBtn);
-            panel1.Location = new Point(402, 12);
+            panel1.Dock = DockStyle.Right;
+            panel1.Location = new Point(399, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(386, 426);
+            panel1.Size = new Size(401, 450);
             panel1.TabIndex = 0;
             // 
             // addBtn
@@ -220,8 +223,9 @@
             // 
             // saveBtn
             // 
+            saveBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             saveBtn.Cursor = Cursors.Hand;
-            saveBtn.Location = new Point(208, 388);
+            saveBtn.Location = new Point(221, 402);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(175, 35);
             saveBtn.TabIndex = 2;
@@ -232,8 +236,9 @@
             // 
             // delBtn
             // 
+            delBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             delBtn.Cursor = Cursors.Hand;
-            delBtn.Location = new Point(3, 388);
+            delBtn.Location = new Point(3, 402);
             delBtn.Name = "delBtn";
             delBtn.Size = new Size(199, 35);
             delBtn.TabIndex = 1;
@@ -244,13 +249,24 @@
             // airportsList
             // 
             airportsList.Alignment = ListViewAlignment.Left;
+            airportsList.Dock = DockStyle.Left;
             airportsList.LabelWrap = false;
-            airportsList.Location = new Point(12, 12);
+            airportsList.Location = new Point(0, 0);
             airportsList.Name = "airportsList";
-            airportsList.Size = new Size(374, 426);
+            airportsList.Size = new Size(376, 450);
             airportsList.TabIndex = 1;
             airportsList.UseCompatibleStateImageBehavior = false;
             airportsList.SelectedIndexChanged += SelectedItemChanged;
+            // 
+            // CompareArList
+            // 
+            CompareArList.Location = new Point(6, 367);
+            CompareArList.Name = "CompareArList";
+            CompareArList.Size = new Size(390, 29);
+            CompareArList.TabIndex = 20;
+            CompareArList.Text = "Замер производительности";
+            CompareArList.UseVisualStyleBackColor = true;
+            CompareArList.Click += CompareArList_Click;
             // 
             // MainForm
             // 
@@ -259,6 +275,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(airportsList);
             Controls.Add(panel1);
+            MinimumSize = new Size(818, 497);
             Name = "MainForm";
             Text = "MainForm";
             Load += MainForm_Load;
@@ -291,5 +308,6 @@
         private PictureBox editModeBtn;
         private PictureBox addBtn;
         private ListView airportsList;
+        private Button CompareArList;
     }
 }
