@@ -15,12 +15,13 @@ namespace LW1.Forms
         private Airport[] airportArray = new Airport[100000];
         private int selectedId;
         private EventArgsModel message = new("");
+        private readonly EventListener listener;
 
         public MainForm(IAirportService airportService)
         {
             InitializeComponent();
             this.airportService = airportService;
-            EventListener listener = new();
+            listener = new();
         }
 
         private void addBtnClick(object sender, EventArgs e)
