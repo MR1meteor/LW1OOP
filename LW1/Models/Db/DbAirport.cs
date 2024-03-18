@@ -10,4 +10,8 @@ public class DbAirport
     public double AverageVisitors { get; set; }
     public double MonthlyIncome { get; set; }
     public int IncidentsCount { get; set; }
+    public string MilitaryDistrict { get; set; }
+    public int HasAirDefence { get; set; }
+    public int AircraftNumber { get; set; }
+    public int AirportType { get; set; }
 }

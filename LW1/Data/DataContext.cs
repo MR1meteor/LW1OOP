@@ -37,7 +37,10 @@ public class DataContext
                               SoldTickets INTEGER,
                               AverageVisitors REAL,
                               MonthlyIncome REAL,
-                              IncidentsCount INTEGER
+                              IncidentsCount INTEGER,
+                              MilitaryDistrict TEXT,
+                              HasAirDefence INTEGER,
+                              AircraftNumber INTEGER
                           );
                       """;
             await connection.ExecuteAsync(sql);

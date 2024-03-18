@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using LW1.Event;
 using LW1.EventArgsModels;
+using LW1.Factories;
 using LW1.Models.Service;
 using LW1.Services.Interfaces;
 
@@ -192,7 +193,7 @@ namespace LW1.Forms
 
         }
 
-        private void CompareArList_Click(object sender, EventArgs e)
+        private void c(object sender, EventArgs e)
         {
             saveBtn.Tag = "back";
             delBtn.Hide();
@@ -206,7 +207,10 @@ namespace LW1.Forms
             Array.Clear(airportArray);
             for (int i = 0; i < 100000; i++)
             {
-                Airport item = new();
+                // Ну хуй знает, ебись сам, вот пример создания
+                AirportFactory factory = new MilitaryAirportFactory();
+                var item = factory.CreateAirport();
+                ///
                 airportArray[i] = item;
                 currentAirports.Add(item);
             }

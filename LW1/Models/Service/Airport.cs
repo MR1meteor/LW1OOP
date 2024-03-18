@@ -1,6 +1,6 @@
 ﻿namespace LW1.Models.Service;
 
-public class Airport
+public abstract class Airport
 {
     public static int ObjectsCounter = 0;
     
@@ -8,12 +8,8 @@ public class Airport
     public string Name { get; set; }
     public int Code { get; set; }
     public int Runways { get; set; }
-    public int SoldTickets { get; set; }
-    public double AverageVisitors { get; set; }
-    public double MonthlyIncome { get; set; }
     public int IncidentsCount { get; set; }
-    public bool IsValid => !String.IsNullOrWhiteSpace(Name) && Code >= 0 && Runways >= 0 && SoldTickets >= 0 &&
-                           AverageVisitors >= 0 && MonthlyIncome >= 0 && IncidentsCount >= 0;
+    public virtual bool IsValid => !String.IsNullOrWhiteSpace(Name) && Code >= 0 && Runways >= 0 && IncidentsCount >= 0;
 
     public Airport()
     {
@@ -21,9 +17,6 @@ public class Airport
         Name = string.Empty;
         Code = 0;
         Runways = 0;
-        SoldTickets = 0;
-        AverageVisitors = 0d;
-        MonthlyIncome = 0d;
         IncidentsCount = 0;
     }
 
@@ -33,9 +26,6 @@ public class Airport
         Name = name;
         Code = 0;
         Runways = 0;
-        SoldTickets = 0;
-        AverageVisitors = 0d;
-        MonthlyIncome = 0d;
         IncidentsCount = 0;
     }
 
@@ -45,27 +35,22 @@ public class Airport
         Name = name;
         Code = code;
         Runways = 0;
-        SoldTickets = 0;
-        AverageVisitors = 0d;
-        MonthlyIncome = 0d;
         IncidentsCount = 0;
     }
 
-    public Airport(string name, int code, int runways = default, int soldTickets = default,
-        double averageVisitors = default, double monthlyIncome = default, int incidentsCount = default)
+    public Airport(string name, int code, int runways = default, int incidentsCount = default)
     {
         Id = 0;
         Name = name;
         Code = code;
         Runways = runways;
-        SoldTickets = soldTickets;
-        AverageVisitors = averageVisitors;
-        MonthlyIncome = monthlyIncome;
         IncidentsCount = incidentsCount;
     }
 
+    public abstract string GetAirportType();
+    
     public override string ToString()
     {
-        return $"{Id} | {Name} | {Code}| {Runways} | {SoldTickets} | {AverageVisitors} | {MonthlyIncome} | {IncidentsCount} ";
+        return $"{Id} | {Name} | {Code}| {Runways} | {IncidentsCount}";
     }
 }

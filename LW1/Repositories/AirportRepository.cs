@@ -16,7 +16,7 @@ public class AirportRepository : IAirportRepository
         this.context = context;
     }
     
-    public async Task<List<Airport>> GetAll()
+    public async Task<IEnumerable<Airport>> GetAll()
     {
         using var connection = context.CreateConnection();
         var sql = """
@@ -48,8 +48,8 @@ public class AirportRepository : IAirportRepository
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  INSERT INTO Airports (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount)
-                  VALUES (@Name, @Code, @Runways, @SoldTickets, @AverageVisitors, @MonthlyIncome, @IncidentsCount)
+                  INSERT INTO Airports (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount, MilitaryDistrict, HasAirDefence, AircraftNumber, AirportType)
+                  VALUES (@Name, @Code, @Runways, @SoldTickets, @AverageVisitors, @MonthlyIncome, @IncidentsCount, @MilitaryDistrict, @HasAirDefence, @AircraftNumber, @AirportType)
                   RETURNING *
                   """;
         return (await connection.QuerySingleOrDefaultAsync<DbAirport>(sql, dbAirport)).MapToService();
@@ -66,7 +66,11 @@ public class AirportRepository : IAirportRepository
                       SoldTickets = @SoldTickets,
                       AverageVisitors = @AverageVisitors,
                       MonthlyIncome = @MonthlyIncome,
-                      IncidentsCount = @IncidentsCount
+                      IncidentsCount = @IncidentsCount,
+                      MilitaryDistrict = @MilitaryDistrict,
+                      HasAirDefence = @HasAirDefence,
+                      AircraftNumber = @AircraftNumber,
+                      AirportType = @AirportType
                   WHERE Id = @Id
                   RETURNING *
                   """;
