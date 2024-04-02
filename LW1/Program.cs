@@ -77,6 +77,9 @@ static class Program
                 case CustomInvalidCastException cice:
                     Win32.MessageBox(0, cice.StackTrace, cice.StackTrace, 0);
                     break;
+                case FormatException fe:
+                    Win32.MessageBox(0, "Неверный формат введенных данных", "Ошибка формата ввода", 0);
+                    break;
                 default:
                     Win32.MessageBox(0, ex.Message, "Untyped exception", 0);
                     break;

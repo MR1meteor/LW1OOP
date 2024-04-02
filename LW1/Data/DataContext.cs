@@ -40,7 +40,8 @@ public class DataContext
                               IncidentsCount INTEGER,
                               MilitaryDistrict TEXT,
                               HasAirDefence INTEGER,
-                              AircraftNumber INTEGER
+                              AircraftNumber INTEGER,
+                              AirportType INTEGER
                           );
                       """;
             await connection.ExecuteAsync(sql);

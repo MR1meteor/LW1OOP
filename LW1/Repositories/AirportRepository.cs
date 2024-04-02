@@ -69,8 +69,7 @@ public class AirportRepository : IAirportRepository
                       IncidentsCount = @IncidentsCount,
                       MilitaryDistrict = @MilitaryDistrict,
                       HasAirDefence = @HasAirDefence,
-                      AircraftNumber = @AircraftNumber,
-                      AirportType = @AirportType
+                      AircraftNumber = @AircraftNumber
                   WHERE Id = @Id
                   RETURNING *
                   """;

@@ -13,8 +13,8 @@ namespace LW1.Forms
         public delegate void EventHandle(object? sender, EventArgsModel message);
         public static event EventHandle OnEvent;
         private readonly IAirportService airportService;
-        private CivilAirportFactory civilAirpors = new();
-        private MilitaryAirportFactory militaryAirpors = new();
+        private readonly CivilAirportFactory civilAirportsFactory = new();
+        private readonly MilitaryAirportFactory militaryAirportsFactory = new();
         private List<Airport> currentAirports;
         private Airport[] airportArray = new Airport[100000];
         private int selectedId;
@@ -31,6 +31,7 @@ namespace LW1.Forms
         private void addBtnClick(object sender, EventArgs e)
         {
             radioButton1.Enabled = true;
+            radioButton1.Checked = true;
             radioButton2.Enabled = true;
             airportsList.Enabled = false;
             saveBtn.Tag = "add";
@@ -87,51 +88,51 @@ namespace LW1.Forms
             if (radioButton1.Checked)
             {
                 
-                if (nameTextbox.Text == "")
+                if (string.IsNullOrEmpty(nameTextbox.Text))
                 {
                     nameTextbox.BackColor = Color.Coral;
                     return;
                 }
-                else if (codeTextbox.Text == "")
+                else if (string.IsNullOrEmpty(codeTextbox.Text))
                 {
                     codeTextbox.BackColor = Color.Coral;
                     return;
                 }
-                else if (runwaysTextbox.Text == "" || touristsTextbox.Text == "" || ticketsTextbox.Text == "" ||
-                    incomeTextbox.Text == "" || incidentsTextbox.Text == "")
+                else if (string.IsNullOrEmpty(runwaysTextbox.Text) && string.IsNullOrEmpty(touristsTextbox.Text) && string.IsNullOrEmpty(ticketsTextbox.Text) &&
+                    string.IsNullOrEmpty(incomeTextbox.Text) && string.IsNullOrEmpty(incidentsTextbox.Text))
                 {
 
-                    newAirport = civilAirpors.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
+                    newAirport = civilAirportsFactory.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
                 }
                 else
                 {
 
-                    newAirport = (CivilAirport)civilAirpors.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
+                    newAirport = (CivilAirport)civilAirportsFactory.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
                         checkInt(incidentsTextbox), checkInt(ticketsTextbox), checkDouble(touristsTextbox), checkDouble(incomeTextbox));
                 }
             }
             else
             {
-                if (nameTextbox.Text == "")
+                if (string.IsNullOrEmpty(nameTextbox.Text))
                 {
                     nameTextbox.BackColor = Color.Coral;
                     return;
                 }
-                else if (codeTextbox.Text == "")
+                else if (string.IsNullOrEmpty(codeTextbox.Text))
                 {
                     codeTextbox.BackColor = Color.Coral;
                     return;
                 }
-                else if (runwaysTextbox.Text == "" || touristsTextbox.Text == "" || ticketsTextbox.Text == "" ||
-                    incomeTextbox.Text == "" || incidentsTextbox.Text == "")
+                else if (string.IsNullOrEmpty(runwaysTextbox.Text) && string.IsNullOrEmpty(touristsTextbox.Text) && string.IsNullOrEmpty(ticketsTextbox.Text) &&
+                    string.IsNullOrEmpty(incomeTextbox.Text) && string.IsNullOrEmpty(incidentsTextbox.Text))
                 {
 
-                    newAirport = (MilitaryAirport)militaryAirpors.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
+                    newAirport = militaryAirportsFactory.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
                 }
                 else
                 {
 
-                    newAirport = (MilitaryAirport)militaryAirpors.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
+                    newAirport = militaryAirportsFactory.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
                         checkInt(incidentsTextbox), ticketsTextbox.Text, AACheckbox.Checked, checkInt(incomeTextbox));
                 }
             }
@@ -149,17 +150,17 @@ namespace LW1.Forms
 
         private int checkInt(TextBox field)
         {
-            return field.Text == "" ? default : Int32.Parse(field.Text);
+            return string.IsNullOrEmpty(field.Text) ? default : Int32.Parse(field.Text);
         }
 
         private double checkDouble(TextBox field)
         {
-            return field.Text == "" ? default : Double.Parse(field.Text);
+            return string.IsNullOrEmpty(field.Text) ? default : Double.Parse(field.Text);
         }
 
         private async void saveAirport()
         {
-           /* Airport currentAirport = currentAirports[selectedId];
+           var currentAirport = currentAirports[selectedId];
             if (nameTextbox.Text == "")
             {
                 nameTextbox.BackColor = Color.Coral;
@@ -172,19 +173,32 @@ namespace LW1.Forms
             }
             if (currentAirport.GetType() == typeof(CivilAirport))
             {
-                currentAirport.Name = nameTextbox.Text;
-                currentAirport.Code = checkInt(codeTextbox);
-                currentAirport.Runways = checkInt(runwaysTextbox);
-                currentAirport.SoldTickets = checkInt(ticketsTextbox);
-                currentAirport.AverageVisitors = checkDouble(touristsTextbox);
-                currentAirport.MonthlyIncome = checkDouble(incomeTextbox);
-                currentAirport.IncidentsCount = checkInt(incidentsTextbox);
+                CivilAirport curCivilAirport = (CivilAirport) currentAirport;
+                curCivilAirport.Name = nameTextbox.Text;
+                curCivilAirport.Code = checkInt(codeTextbox);
+                curCivilAirport.Runways = checkInt(runwaysTextbox);
+                curCivilAirport.SoldTickets = checkInt(ticketsTextbox);
+                curCivilAirport.AverageVisitors = checkDouble(touristsTextbox);
+                curCivilAirport.MonthlyIncome = checkDouble(incomeTextbox);
+                curCivilAirport.IncidentsCount = checkInt(incidentsTextbox);
+                await airportService.Update(curCivilAirport);
+            }
+            else if(currentAirport.GetType() == typeof(MilitaryAirport))
+            {
+                MilitaryAirport curCivilAirport = (MilitaryAirport)currentAirport;
+                curCivilAirport.Name = nameTextbox.Text;
+                curCivilAirport.Code = checkInt(codeTextbox);
+                curCivilAirport.Runways = checkInt(runwaysTextbox);
+                curCivilAirport.MilitaryDistrict = ticketsTextbox.Text;
+                curCivilAirport.HasAirDefence = AACheckbox.Checked;
+                curCivilAirport.AircraftNumber = checkInt(incomeTextbox);
+                curCivilAirport.IncidentsCount = checkInt(incidentsTextbox);
+                await airportService.Update(curCivilAirport);
             }
             editModeBtn.Enabled = true;
             message.Message = "Объект сохранён";
             OnEvent?.Invoke(this, message);
-            await airportService.Update(currentAirport);
-            await updateData();*/
+            await updateData();
         }
         private void editAirport(object sender, EventArgs e)
         {
@@ -206,12 +220,15 @@ namespace LW1.Forms
         {
             airportsList.Clear();
             currentAirports = await airportService.GetAll();
-            foreach (Airport airport in currentAirports)
+            foreach (var airport in currentAirports)
             {
                 airportsList.Items.Add(airport.Name);
             }
             selectedId = currentAirports.Count - 1;
-            FillDataSingle(currentAirports[selectedId]);
+            if (selectedId > 0)
+            {
+                FillDataSingle(currentAirports[selectedId]);
+            }
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
@@ -247,7 +264,7 @@ namespace LW1.Forms
                 AACheckbox.Checked = currentAirport.HasAirDefence;
                 incomeTextbox.Text = currentAirport.AircraftNumber.ToString();
             }
-            incomeTextbox.Text = airport.IncidentsCount.ToString();
+            incidentsTextbox.Text = airport.IncidentsCount.ToString();
 
         }
         private void CompareArList_Click(object sender, EventArgs e)
