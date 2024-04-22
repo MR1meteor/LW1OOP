@@ -1,4 +1,6 @@
-﻿namespace LW1.Models.Service;
+﻿using LW1.Mementos;
+
+namespace LW1.Models.Service;
 
 public class CivilAirport : Airport, ICloneable
 {
@@ -46,6 +48,23 @@ public class CivilAirport : Airport, ICloneable
     public override string ToString()
     {
         return $"{Id} | {Name} | {Code}| {Runways} | {IncidentsCount} | {SoldTickets} | {AverageVisitors} | {MonthlyIncome}";
+    }
+    
+    public CivilAirportMemento SaveStateToMemento()
+    {
+        return new CivilAirportMemento(Id, Name, Code, Runways, IncidentsCount, SoldTickets, AverageVisitors, MonthlyIncome);
+    }
+
+    public void GetStateFromMemento(CivilAirportMemento memento)
+    {
+        Id = memento.Id;
+        Name = memento.Name;
+        Code = memento.Code;
+        Runways = memento.Runways;
+        IncidentsCount = memento.IncidentsCount;
+        SoldTickets = memento.SoldTickets;
+        AverageVisitors = memento.AverageVisitors;
+        MonthlyIncome = memento.MonthlyIncome;
     }
 
     public object Clone()

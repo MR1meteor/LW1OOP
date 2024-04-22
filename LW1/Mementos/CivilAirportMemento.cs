@@ -2,14 +2,14 @@
 
 public class CivilAirportMemento
 {
-    int Id { get; }
-    string Name { get; }
-    int Code { get; }
-    int Runways { get; }
-    int IncidentsCount { get; }
-    public int SoldTickets { get; set; }
-    public double AverageVisitors { get; set; }
-    public double MonthlyIncome { get; set; }
+    public int Id { get; }
+    public string Name { get; }
+    public int Code { get; }
+    public int Runways { get; }
+    public int IncidentsCount { get; }
+    public int SoldTickets { get; }
+    public double AverageVisitors { get; }
+    public double MonthlyIncome { get; }
 
     public CivilAirportMemento(int id, string name, int code, int runways, int incidentsCount,
         int soldTickets, double averageVisitors, double monthlyIncome)

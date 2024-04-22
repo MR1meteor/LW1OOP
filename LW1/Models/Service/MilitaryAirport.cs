@@ -1,4 +1,6 @@
-﻿namespace LW1.Models.Service;
+﻿using LW1.Mementos;
+
+namespace LW1.Models.Service;
 
 public class MilitaryAirport : Airport, ICloneable
 {
@@ -49,6 +51,23 @@ public class MilitaryAirport : Airport, ICloneable
         return $"{Id} | {Name} | {Code}| {Runways} | {IncidentsCount} | {MilitaryDistrict} | {HasAirDefence} | {AircraftNumber}";
     }
 
+    public MilitaryAirportMemento SaveStateToMemento()
+    {
+        return new MilitaryAirportMemento(Id, Name, Code, Runways, IncidentsCount, MilitaryDistrict, HasAirDefence, AircraftNumber);
+    }
+
+    public void GetStateFromMemento(MilitaryAirportMemento memento)
+    {
+        Id = memento.Id;
+        Name = memento.Name;
+        Code = memento.Code;
+        Runways = memento.Runways;
+        IncidentsCount = memento.IncidentsCount;
+        MilitaryDistrict = memento.MilitaryDistrict;
+        HasAirDefence = memento.HasAirDefence;
+        AircraftNumber = memento.AircraftNumber;
+    }
+    
     public object Clone()
     {
         return this.MemberwiseClone();

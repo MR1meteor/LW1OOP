@@ -2,14 +2,14 @@
 
 public class MilitaryAirportMemento
 {
-    int Id { get; }
-    string Name { get; }
-    int Code { get; }
-    int Runways { get; }
-    int IncidentsCount { get; }
-    string MilitaryDistrict { get; }
-    bool HasAirDefence { get; }
-    int AircraftNumber { get; }
+    public int Id { get; }
+    public string Name { get; }
+    public int Code { get; }
+    public int Runways { get; }
+    public int IncidentsCount { get; }
+    public string MilitaryDistrict { get; }
+    public bool HasAirDefence { get; }
+    public int AircraftNumber { get; }
 
     public MilitaryAirportMemento(int id, string name, int code, int runways, int incidentsCount,
         string militaryDistrict, bool hasAirDefence, int aircraftNumber)
