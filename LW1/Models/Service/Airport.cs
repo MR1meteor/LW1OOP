@@ -11,7 +11,7 @@ public abstract class Airport
     public int IncidentsCount { get; set; }
     public virtual bool IsValid => !String.IsNullOrWhiteSpace(Name) && Code >= 0 && Runways >= 0 && IncidentsCount >= 0;
 
-    public Airport()
+    protected Airport()
     {
         Id = 0;
         Name = string.Empty;
@@ -20,25 +20,7 @@ public abstract class Airport
         IncidentsCount = 0;
     }
 
-    public Airport(string name)
-    {
-        Id = 0;
-        Name = name;
-        Code = 0;
-        Runways = 0;
-        IncidentsCount = 0;
-    }
-
-    public Airport(string name, int code)
-    {
-        Id = 0;
-        Name = name;
-        Code = code;
-        Runways = 0;
-        IncidentsCount = 0;
-    }
-
-    public Airport(string name, int code, int runways = default, int incidentsCount = default)
+    protected Airport(string name, int code, int runways = default, int incidentsCount = default)
     {
         Id = 0;
         Name = name;
