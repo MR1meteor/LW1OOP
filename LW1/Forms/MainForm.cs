@@ -13,8 +13,7 @@ namespace LW1.Forms
         public delegate void EventHandle(object? sender, EventArgsModel message);
         public static event EventHandle OnEvent;
         private readonly IAirportService airportService;
-        private readonly CivilAirportFactory civilAirportsFactory = new();
-        private readonly MilitaryAirportFactory militaryAirportsFactory = new();
+        private readonly AirportFlyweightFactory allAirportsFactory = new();
         private List<Airport> currentAirports;
         private Airport[] airportArray = new Airport[100000];
         private int selectedId;
@@ -98,17 +97,35 @@ namespace LW1.Forms
                     codeTextbox.BackColor = Color.Coral;
                     return;
                 }
-                else if (string.IsNullOrEmpty(runwaysTextbox.Text) && string.IsNullOrEmpty(touristsTextbox.Text) && string.IsNullOrEmpty(ticketsTextbox.Text) &&
-                    string.IsNullOrEmpty(incomeTextbox.Text) && string.IsNullOrEmpty(incidentsTextbox.Text))
+                else if (string.IsNullOrEmpty(runwaysTextbox.Text))
                 {
-
-                    newAirport = civilAirportsFactory.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
+                    runwaysTextbox.BackColor= Color.Coral;
+                    return;
+                }
+                else if (string.IsNullOrEmpty(incidentsTextbox.Text))
+                {
+                    incidentsTextbox.BackColor = Color.Coral;
+                    return;
                 }
                 else
                 {
 
-                    newAirport = (CivilAirport)civilAirportsFactory.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
-                        checkInt(incidentsTextbox), checkInt(ticketsTextbox), checkDouble(touristsTextbox), checkDouble(incomeTextbox));
+                    newAirport = allAirportsFactory.GetAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox), checkInt(incidentsTextbox),"Civil");
+                    if (!string.IsNullOrEmpty(ticketsTextbox.Text))
+                    {
+                        ((CivilAirport)newAirport).AverageVisitors = checkDouble(touristsTextbox);
+
+                    }
+                    if (!string.IsNullOrEmpty(touristsTextbox.Text))
+                    {
+                        ((CivilAirport)newAirport).AverageVisitors = checkDouble(touristsTextbox);
+
+                    }
+                    if (!string.IsNullOrEmpty(incomeTextbox.Text))
+                    {
+                        ((CivilAirport)newAirport).MonthlyIncome = checkInt(incidentsTextbox);
+
+                    }
                 }
             }
             else
@@ -123,17 +140,39 @@ namespace LW1.Forms
                     codeTextbox.BackColor = Color.Coral;
                     return;
                 }
-                else if (string.IsNullOrEmpty(runwaysTextbox.Text) && string.IsNullOrEmpty(touristsTextbox.Text) && string.IsNullOrEmpty(ticketsTextbox.Text) &&
-                    string.IsNullOrEmpty(incomeTextbox.Text) && string.IsNullOrEmpty(incidentsTextbox.Text))
+                else if (string.IsNullOrEmpty(runwaysTextbox.Text))
                 {
-
-                    newAirport = militaryAirportsFactory.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
+                    runwaysTextbox.BackColor = Color.Coral;
+                    return;
+                }
+                else if (string.IsNullOrEmpty(incidentsTextbox.Text))
+                {
+                    incidentsTextbox.BackColor = Color.Coral;
+                    return;
                 }
                 else
                 {
 
-                    newAirport = militaryAirportsFactory.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
-                        checkInt(incidentsTextbox), ticketsTextbox.Text, AACheckbox.Checked, checkInt(incomeTextbox));
+                    newAirport = (MilitaryAirport)allAirportsFactory.GetAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox), checkInt(incidentsTextbox), "Military");
+                    if (!string.IsNullOrEmpty(ticketsTextbox.Text))
+                    {
+                        ((MilitaryAirport)newAirport).MilitaryDistrict = ticketsTextbox.Text;
+
+                    }
+                    if (AACheckbox.Checked)
+                    {
+                        ((MilitaryAirport)newAirport).HasAirDefence = true;
+
+                    }
+                    else
+                    {
+                        ((MilitaryAirport)newAirport).HasAirDefence = false;
+                    }
+                    if (!string.IsNullOrEmpty(incomeTextbox.Text))
+                    {
+                        ((MilitaryAirport)newAirport).AircraftNumber = checkInt(incidentsTextbox);
+
+                    }
                 }
             }
             message.Message = "Объект добавлен";
@@ -141,6 +180,8 @@ namespace LW1.Forms
             await airportService.Add(newAirport);
             nameTextbox.BackColor = DefaultBackColor;
             codeTextbox.BackColor = DefaultBackColor;
+            runwaysTextbox.BackColor = DefaultBackColor;
+            incidentsTextbox.BackColor = DefaultBackColor;
             saveBtn.Tag = "save";
             await updateData();
             airportsList.Enabled = true;
@@ -281,10 +322,7 @@ namespace LW1.Forms
             Array.Clear(airportArray);
             for (int i = 0; i < 100000; i++)
             {
-                // Ну хуй знает, ебись сам, вот пример создания
-                AirportFactory factory = new MilitaryAirportFactory();
-                var item = factory.CreateAirport();
-                ///
+                var item = allAirportsFactory.GetAirport("test", 0, 0, 0, "civil");
                 airportArray[i] = item;
                 currentAirports.Add(item);
             }
