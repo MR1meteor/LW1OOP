@@ -1,6 +1,6 @@
 ﻿namespace LW1.Models.Service;
 
-public class MilitaryAirport : Airport
+public class MilitaryAirport : Airport, ICloneable
 {
     public string MilitaryDistrict { get; set; }
     public bool HasAirDefence { get; set; }
@@ -48,5 +48,9 @@ public class MilitaryAirport : Airport
     {
         return $"{Id} | {Name} | {Code}| {Runways} | {IncidentsCount} | {MilitaryDistrict} | {HasAirDefence} | {AircraftNumber}";
     }
-    
+
+    public object Clone()
+    {
+        return this.MemberwiseClone();
+    }
 }

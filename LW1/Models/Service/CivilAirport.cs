@@ -1,6 +1,6 @@
 ﻿namespace LW1.Models.Service;
 
-public class CivilAirport : Airport
+public class CivilAirport : Airport, ICloneable
 {
     public int SoldTickets { get; set; }
     public double AverageVisitors { get; set; }
@@ -46,5 +46,10 @@ public class CivilAirport : Airport
     public override string ToString()
     {
         return $"{Id} | {Name} | {Code}| {Runways} | {IncidentsCount} | {SoldTickets} | {AverageVisitors} | {MonthlyIncome}";
+    }
+
+    public object Clone()
+    {
+        return this.MemberwiseClone();
     }
 }
