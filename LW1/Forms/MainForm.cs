@@ -271,10 +271,10 @@ namespace LW1.Forms
         }
         private void FillDataSingle(CivilAirportMemento airport)
         {
+            civilMode();
             nameTextbox.Text = airport.Name;
             codeTextbox.Text = airport.Code.ToString();
             runwaysTextbox.Text = airport.Runways.ToString();
-                civilMode();
             ticketsTextbox.Text = airport.SoldTickets.ToString();
             touristsTextbox.Text = airport.AverageVisitors.ToString();
             incomeTextbox.Text = airport.MonthlyIncome.ToString();
@@ -284,10 +284,10 @@ namespace LW1.Forms
 
         private void FillDataSingle(MilitaryAirportMemento airport)
         {
+            millitaryMode();
             nameTextbox.Text = airport.Name;
             codeTextbox.Text = airport.Code.ToString();
             runwaysTextbox.Text = airport.Runways.ToString();
-            millitaryMode();
             ticketsTextbox.Text = airport.MilitaryDistrict.ToString();
             AACheckbox.Checked = airport.HasAirDefence;
             incomeTextbox.Text = airport.AircraftNumber.ToString();
@@ -398,7 +398,7 @@ namespace LW1.Forms
         private void saveStatusButton_Click(object sender, EventArgs e)
         {
             var selectedAirport = currentAirports[selectedId];
-            var checkAlreadyExistMilitary = militaryMementos.FirstOrDefault(item => item.Id == selectedId);
+            var checkAlreadyExistMilitary = militaryMementos.FirstOrDefault(item => item.Id == selectedAirport.Id);
             if (checkAlreadyExistMilitary != null)
             {
                 DialogResult result = MessageBox.Show(
@@ -415,7 +415,7 @@ namespace LW1.Forms
                     return;
                 }
             }
-            var checkAlreadyExistCivil = civilMementos.FirstOrDefault(item => item.Id == selectedId);
+            var checkAlreadyExistCivil = civilMementos.FirstOrDefault(item => item.Id == selectedAirport.Id);
             if (checkAlreadyExistCivil != null)
             {
                 DialogResult result = MessageBox.Show(
@@ -434,15 +434,14 @@ namespace LW1.Forms
             }
             if (selectedAirport.GetType() == typeof(CivilAirport))
             {
-                var newMemento = new CivilAirportMemento(selectedId, selectedAirport.Name, selectedAirport.Code, selectedAirport.Runways, selectedAirport.IncidentsCount,
-                    ((CivilAirport)selectedAirport).SoldTickets, ((CivilAirport)selectedAirport).AverageVisitors, ((CivilAirport)selectedAirport).MonthlyIncome);
+                var newMemento = new CivilAirportMemento(selectedAirport.Id, nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
+                        checkInt(incidentsTextbox), checkInt(ticketsTextbox), checkDouble(touristsTextbox), checkDouble(incomeTextbox));
                 civilMementos.Add(newMemento);
             }
             else if (selectedAirport.GetType() == typeof(MilitaryAirport))
             {
-                var newMemento = new MilitaryAirportMemento(selectedId, selectedAirport.Name, selectedAirport.Code, selectedAirport.Runways, selectedAirport.IncidentsCount,
-                    ((MilitaryAirport)selectedAirport).MilitaryDistrict, ((MilitaryAirport)selectedAirport).HasAirDefence,
-                    ((MilitaryAirport)selectedAirport).AircraftNumber);
+                var newMemento = new MilitaryAirportMemento(selectedAirport.Id, nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
+                        checkInt(incidentsTextbox), ticketsTextbox.Text, AACheckbox.Checked, checkInt(incomeTextbox));
                 militaryMementos.Add(newMemento);
             }
         }
@@ -450,8 +449,9 @@ namespace LW1.Forms
         private void LoadStatusButton_Click(object sender, EventArgs e)
         {
             var selectedAirport = currentAirports[selectedId];
-            if (selectedAirport.GetType() == typeof(CivilAirport)) {
-                var checkAlreadyExistCivil = civilMementos.FirstOrDefault(item => item.Id == selectedId);
+            var type = selectedAirport.GetType();
+            if (selectedAirport.GetType().Name == "CivilAirport") {
+                var checkAlreadyExistCivil = civilMementos.FirstOrDefault(item => item.Id == selectedAirport.Id);
                 if (checkAlreadyExistCivil != null)
                 {
                     FillDataSingle(checkAlreadyExistCivil);
@@ -460,7 +460,7 @@ namespace LW1.Forms
                     return; 
                 }
             }
-            else if(selectedAirport.GetType() == typeof(MilitaryAirport))
+            else if(selectedAirport.GetType().Name == "MilitaryAirport")
             {
                 var checkAlreadyExistMilitary = militaryMementos.FirstOrDefault(item => item.Id == selectedId);
                 if(checkAlreadyExistMilitary != null)
