@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel1 = new Panel();
+            LoadStatusButton = new Button();
+            saveStatusButton = new Button();
             AACheckbox = new CheckBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
@@ -61,6 +63,8 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(LoadStatusButton);
+            panel1.Controls.Add(saveStatusButton);
             panel1.Controls.Add(AACheckbox);
             panel1.Controls.Add(radioButton2);
             panel1.Controls.Add(radioButton1);
@@ -87,8 +91,28 @@
             panel1.Location = new Point(351, 0);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(351, 344);
+            panel1.Size = new Size(351, 369);
             panel1.TabIndex = 0;
+            // 
+            // LoadStatusButton
+            // 
+            LoadStatusButton.Location = new Point(190, 301);
+            LoadStatusButton.Name = "LoadStatusButton";
+            LoadStatusButton.Size = new Size(156, 27);
+            LoadStatusButton.TabIndex = 25;
+            LoadStatusButton.Text = "Восстановить состояние";
+            LoadStatusButton.UseVisualStyleBackColor = true;
+            LoadStatusButton.Click += LoadStatusButton_Click;
+            // 
+            // saveStatusButton
+            // 
+            saveStatusButton.Location = new Point(5, 301);
+            saveStatusButton.Name = "saveStatusButton";
+            saveStatusButton.Size = new Size(172, 27);
+            saveStatusButton.TabIndex = 24;
+            saveStatusButton.Text = "Сохранить состояние";
+            saveStatusButton.UseVisualStyleBackColor = true;
+            saveStatusButton.Click += saveStatusButton_Click;
             // 
             // AACheckbox
             // 
@@ -291,7 +315,7 @@
             // 
             saveBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             saveBtn.Cursor = Cursors.Hand;
-            saveBtn.Location = new Point(193, 308);
+            saveBtn.Location = new Point(193, 333);
             saveBtn.Margin = new Padding(3, 2, 3, 2);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(153, 26);
@@ -305,7 +329,7 @@
             // 
             delBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             delBtn.Cursor = Cursors.Hand;
-            delBtn.Location = new Point(3, 308);
+            delBtn.Location = new Point(3, 333);
             delBtn.Margin = new Padding(3, 2, 3, 2);
             delBtn.Name = "delBtn";
             delBtn.Size = new Size(174, 26);
@@ -322,7 +346,7 @@
             airportsList.Location = new Point(0, 0);
             airportsList.Margin = new Padding(3, 2, 3, 2);
             airportsList.Name = "airportsList";
-            airportsList.Size = new Size(330, 344);
+            airportsList.Size = new Size(330, 369);
             airportsList.TabIndex = 1;
             airportsList.UseCompatibleStateImageBehavior = false;
             airportsList.SelectedIndexChanged += SelectedItemChanged;
@@ -331,7 +355,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(702, 344);
+            ClientSize = new Size(702, 369);
             Controls.Add(airportsList);
             Controls.Add(panel1);
             Margin = new Padding(3, 2, 3, 2);
@@ -372,5 +396,7 @@
         private RadioButton radioButton2;
         private RadioButton radioButton1;
         private CheckBox AACheckbox;
+        private Button LoadStatusButton;
+        private Button saveStatusButton;
     }
 }
