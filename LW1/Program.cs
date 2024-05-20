@@ -2,11 +2,6 @@ using LW1.Data;
 using LW1.Exceptions;
 using LW1.External;
 using LW1.Forms;
-using LW1.Models.Service;
-using LW1.Repositories;
-using LW1.Repositories.Interfaces;
-using LW1.Services;
-using LW1.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -35,7 +30,8 @@ static class Program
         using var scope = host.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         context.Init();
-        
+
+        NativeMethods.AllocConsole();
         Application.Run(serviceProvider.GetRequiredService<Forms.MainForm>());
     }
 
@@ -44,8 +40,6 @@ static class Program
         return Host.CreateDefaultBuilder()
             .ConfigureServices((context, services)=>
             {
-                services.AddTransient<IAirportRepository, AirportRepository>();
-                services.AddTransient<IAirportService, AirportService>();
                 services.AddTransient<MainForm>();
                 services.AddSingleton<DataContext>();
             });
