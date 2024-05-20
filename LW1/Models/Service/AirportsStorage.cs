@@ -2,14 +2,25 @@
 
 public class AirportsStorage
 {
-    public List<Airport> Airports { get; set; } = new List<Airport>();
+    public List<Airport> airports;
 
+    public Airport[] Airports
+    {
+        set => airports = new List<Airport>(value);
+        get => airports.ToArray();
+    }
+
+    public AirportsStorage()
+    {
+        airports = new List<Airport>();
+    }
+    
     public void AddAirport(string name, int code, int runways, int soldTickets, double averageVisitors, double monthlyIncome,
         int incidentsCount)
     {
-        Airports.Add(new Airport
+        airports.Add(new Airport
         {
-            Id = Airports.Max(airport => airport.Id),
+            Id = airports.Max(airport => airport.Id),
             Name = name,
             Code = code,
             Runways = runways,
@@ -22,18 +33,30 @@ public class AirportsStorage
 
     public void RemoveAirport(int id)
     {
-        var deletion = Airports.FirstOrDefault(airport => airport.Id == id);
+        var deletion = airports.FirstOrDefault(airport => airport.Id == id);
         
         if (deletion == null)
         {
             return;
         }
 
-        Airports.Remove(deletion);
+        airports.Remove(deletion);
     }
 
-    private static AirportsStorage instance;
+    public void UpdateAirport(Airport newAirport)
+    {
+        var existedAirport = airports.FirstOrDefault(airport => airport.Id == airport.Id);
 
+        if (existedAirport != null)
+        {
+            airports.Remove(existedAirport);
+        }
+
+        newAirport.Id = airports.Max(airport => airport.Id);
+        airports.Add(newAirport);
+    }
+    
+    private static AirportsStorage instance;
     public static AirportsStorage Instance
     {
         get
