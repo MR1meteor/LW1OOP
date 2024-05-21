@@ -30,9 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel1 = new Panel();
-            AACheckbox = new CheckBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
             CompareArList = new Button();
             addBtn = new PictureBox();
             editModeBtn = new PictureBox();
@@ -61,9 +58,6 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(AACheckbox);
-            panel1.Controls.Add(radioButton2);
-            panel1.Controls.Add(radioButton1);
             panel1.Controls.Add(CompareArList);
             panel1.Controls.Add(addBtn);
             panel1.Controls.Add(editModeBtn);
@@ -89,45 +83,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(351, 344);
             panel1.TabIndex = 0;
-            // 
-            // AACheckbox
-            // 
-            AACheckbox.AutoSize = true;
-            AACheckbox.Location = new Point(190, 177);
-            AACheckbox.Margin = new Padding(3, 2, 3, 2);
-            AACheckbox.Name = "AACheckbox";
-            AACheckbox.Size = new Size(15, 14);
-            AACheckbox.TabIndex = 23;
-            AACheckbox.UseVisualStyleBackColor = true;
-            AACheckbox.Visible = false;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Enabled = false;
-            radioButton2.Location = new Point(130, 8);
-            radioButton2.Margin = new Padding(3, 2, 3, 2);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(75, 19);
-            radioButton2.TabIndex = 22;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Военный";
-            radioButton2.UseVisualStyleBackColor = true;
-            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Enabled = false;
-            radioButton1.Location = new Point(6, 8);
-            radioButton1.Margin = new Padding(3, 2, 3, 2);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(98, 19);
-            radioButton1.TabIndex = 21;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Гражданский";
-            radioButton1.UseVisualStyleBackColor = true;
-            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
             // 
             // CompareArList
             // 
@@ -369,8 +324,5 @@
         private PictureBox addBtn;
         private ListView airportsList;
         private Button CompareArList;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private CheckBox AACheckbox;
     }
 }
