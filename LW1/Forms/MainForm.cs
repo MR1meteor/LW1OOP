@@ -105,10 +105,7 @@ namespace LW1.Forms
                 nameTextbox.BackColor = Color.Coral;
                 return;
             }
-            /* Мой вариант как тебе передавать, если заинтересует - подгони под это
-             * AirportsStorage.Instance.UpdateAirport(currentAirport, nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
-            checkInt(ticketsTextbox), checkDouble(touristsTextbox), checkDouble(incomeTextbox), checkInt(incidentsTextbox));
-             */
+            
             currentAirport.Name = nameTextbox.Text;
             currentAirport.Code = checkInt(codeTextbox);
             currentAirport.AverageVisitors = checkDouble(touristsTextbox);
@@ -116,11 +113,12 @@ namespace LW1.Forms
             currentAirport.Runways = checkInt(runwaysTextbox);
             currentAirport.IncidentsCount = checkInt(incidentsTextbox);
             currentAirport.MonthlyIncome = checkDouble(incomeTextbox);
+            
             AirportsStorage.Instance.UpdateAirport(currentAirport);
+            AirportController.Instance.RaiseAirportChange(currentAirport, new AirportChangeEventArgs(currentAirport.Id));
             editModeBtn.Enabled = true;
             message.Message = "Объект сохранён";
             OnEvent?.Invoke(this, message);
-            updateData();
         }
         private void editAirport(object sender, EventArgs e)
         {
@@ -139,7 +137,7 @@ namespace LW1.Forms
             OnEvent?.Invoke(this, message);
         }
 
-        private void updateData()
+        private void  updateData()
         {
             airportsList.Clear();
             currentAirports = AirportsStorage.Instance.airports;
@@ -250,7 +248,7 @@ namespace LW1.Forms
 
         public void AirportChange(object sender, AirportChangeEventArgs e)
         {
-            // Тут апдейтить список (наверное..)
+            updateData();
         }
     }
 }

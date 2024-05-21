@@ -31,7 +31,8 @@ static class Program
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         context.Init();
 
-        NativeMethods.AllocConsole();
+        WinConsole.Initialize();
+        var console = new CustomConsole();
         Application.Run(serviceProvider.GetRequiredService<Forms.MainForm>());
     }
 
@@ -72,7 +73,7 @@ static class Program
                     Win32.MessageBox(0, cice.StackTrace, cice.StackTrace, 0);
                     break;
                 case FormatException fe:
-                    Win32.MessageBox(0, "Неверный формат введенных данных", "Ошибка формата ввода", 0);
+                    Win32.MessageBox(0, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ", 0);
                     break;
                 default:
                     Win32.MessageBox(0, ex.Message, "Untyped exception", 0);

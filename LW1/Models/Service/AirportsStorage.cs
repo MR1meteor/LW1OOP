@@ -20,7 +20,7 @@ public class AirportsStorage
     {
         airports.Add(new Airport
         {
-            Id = airports.Max(airport => airport.Id),
+            Id = airports.Any() ? airports.Max(airport => airport.Id) + 1 : 1,
             Name = name,
             Code = code,
             Runways = runways,
@@ -45,14 +45,14 @@ public class AirportsStorage
 
     public void UpdateAirport(Airport newAirport)
     {
-        var existedAirport = airports.FirstOrDefault(airport => airport.Id == airport.Id);
+        var existedAirport = airports.FirstOrDefault(airport => airport.Id == newAirport.Id);
 
         if (existedAirport != null)
         {
             airports.Remove(existedAirport);
         }
 
-        newAirport.Id = airports.Max(airport => airport.Id);
+        newAirport.Id = airports.Any() ? airports.Max(airport => airport.Id) + 1 : 1;
         airports.Add(newAirport);
     }
     
