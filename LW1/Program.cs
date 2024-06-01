@@ -35,8 +35,8 @@ static class Program
         return Host.CreateDefaultBuilder()
             .ConfigureServices((context, services)=>
             {
-                services.AddTransient<IAirportRepository, AirportRepository>();
-                services.AddTransient<IAirportService, AirportService>();
+                services.AddTransient<ITransportRepository, TransportRepository>();
+                services.AddTransient<ITransportService, TransportService>();
                 services.AddTransient<Form1>();
                 services.AddSingleton<DataContext>();
             });

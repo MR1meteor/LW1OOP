@@ -29,15 +29,14 @@ public class DataContext
         {
             var sql = """
                           CREATE TABLE IF NOT EXISTS
-                          Airport (
+                          Transport (
                               Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                              Model TEXT,
                               Name TEXT,
-                              Code INTEGER,
-                              Runways INTEGER,
-                              SoldTickets INTEGER,
-                              AveragePassengers REAL,
-                              MonthlyIncome REAL,
-                              IncidentsCount INTEGER
+                              Surname TEXT,
+                              Patronymic TEXT,
+                              Route TEXT,
+                              Mileage INTEGER
                           );
                       """;
             await connection.ExecuteAsync(sql);

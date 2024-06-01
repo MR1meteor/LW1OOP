@@ -7,50 +7,50 @@ using LW1.Repositories.Interfaces;
 
 namespace LW1.Repositories;
 
-public class AirportRepository : IAirportRepository
+public class TransportRepository : ITransportRepository
 {
     private DataContext context;
 
-    public AirportRepository(DataContext context)
+    public TransportRepository(DataContext context)
     {
         this.context = context;
     }
     
-    public async Task<List<Airport>> GetAll()
+    public async Task<List<Transport>> GetAll()
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  SELECT * FROM Airports
+                  SELECT * FROM Transports
                   """;
-        return (await connection.QueryAsync<DbAirport>(sql)).MapToService();
+        return (await connection.QueryAsync<DbTransport>(sql)).MapToService();
     }
 
-    public async Task<Airport> GetById(int id)
+    public async Task<Transport> GetById(int id)
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  SELECT * FROM Airports WHERE Id = @Id
+                  SELECT * FROM Transports WHERE Id = @Id
                   """;
         var parameters = new { Id = id };
-        return (await connection.QueryFirstOrDefaultAsync<DbAirport>(sql, parameters)).MapToService();
+        return (await connection.QueryFirstOrDefaultAsync<DbTransport>(sql, parameters)).MapToService();
     }
 
-    public async Task<Airport> Add(DbAirport dbAirport)
+    public async Task<Transport> Add(DbTransport dbTransport)
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  INSERT INTO Airports (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount)
+                  INSERT INTO Transports (Name, Code, Runways, SoldTickets, AverageVisitors, MonthlyIncome, IncidentsCount)
                   VALUES (@Name, @Code, @SoldTickets, @AverageVisitors, @MonthlyIncome, @IncidentsCount)
                   RETURNING *
                   """;
-        return (await connection.QuerySingleOrDefaultAsync<DbAirport>(sql, dbAirport)).MapToService();
+        return (await connection.QuerySingleOrDefaultAsync<DbTransport>(sql, dbTransport)).MapToService();
     }
 
-    public async Task<Airport> Update(DbAirport dbAirport)
+    public async Task<Transport> Update(DbTransport dbTransport)
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  UPDATE Airports
+                  UPDATE Transports
                   SET Name = @Name,
                       Code = @Code,
                       Runways = @Runways,
@@ -60,14 +60,14 @@ public class AirportRepository : IAirportRepository
                   WHERE Id = @Id
                   RETURNING *
                   """;
-        return (await connection.QuerySingleOrDefaultAsync<DbAirport>(sql, dbAirport)).MapToService();
+        return (await connection.QuerySingleOrDefaultAsync<DbTransport>(sql, dbTransport)).MapToService();
     }
 
     public async Task Delete(int id)
     {
         using var connection = context.CreateConnection();
         var sql = """
-                  DELETE FROM Airports WHERE Id = @Id
+                  DELETE FROM Transports WHERE Id = @Id
                   """;
         var parameters = new { Id = id };
         await connection.ExecuteAsync(sql, parameters);
