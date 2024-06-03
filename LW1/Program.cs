@@ -1,8 +1,3 @@
-using LW1.Data;
-using LW1.Repositories;
-using LW1.Repositories.Interfaces;
-using LW1.Services;
-using LW1.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -24,8 +19,6 @@ static class Program
         var serviceProvider = host.Services;
 
         using var scope = host.Services.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-        context.Init();
         
         Application.Run(serviceProvider.GetRequiredService<Form1>());
     }
@@ -35,10 +28,7 @@ static class Program
         return Host.CreateDefaultBuilder()
             .ConfigureServices((context, services)=>
             {
-                services.AddTransient<IAirportRepository, AirportRepository>();
-                services.AddTransient<IAirportService, AirportService>();
                 services.AddTransient<Form1>();
-                services.AddSingleton<DataContext>();
             });
     }
 }
