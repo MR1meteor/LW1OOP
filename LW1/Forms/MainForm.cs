@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using LW1.Controllers;
 using LW1.Event;
 using LW1.EventArgsModels;
+using LW1.Presenters;
 using LW1.Views;
 
 namespace LW1.Forms
@@ -15,12 +15,12 @@ namespace LW1.Forms
         private int selectedId;
         private EventArgsModel message = new("");
         private readonly EventListener listener;
+        private AirportPresenter airportPresenter;
 
         public MainForm()
         {
             InitializeComponent();
             listener = new();
-            AirportController.Instance.RegisterView(this);
         }
 
         private void addBtnClick(object sender, EventArgs e)
@@ -321,9 +321,94 @@ namespace LW1.Forms
             AACheckbox.Hide();
         }
 
-        public void AirportChange(object sender, AirportChangeEventArgs e)
+        public void SetPresenter(AirportPresenter airportPresenter)
         {
-            // Тут апдейтить список (наверное..)
+            this.airportPresenter = airportPresenter;
+        }
+         public void Run()
+         {
+            Application.Run(this);
+         }
+         
+         
+        /*
+
+        ИСПОЛЬЗУЙ ФУНКЦИИ ИЗ airportPresenter (новое поле у тебя в форме) ДЛЯ РАБОТЫ С ОБЪЕКТАМИ
+        Нужно для синхры консоли и формы (возможно)
+        Т.е. все добавления / изменения / удаления объектов через методы в airportPresenter делаешь
+        Перед добавлением можешь присваивать значение через airportPresenter.SetAdding, также с изменением
+        Но если реализуешь методы ниже это вроде бы не понадобится
+        (Сам хз как эта хуйня должна работать, параша еще та)
+        Всю лишнюю хуйню под снос чтобы не мешала
+
+        */
+         
+        public void ShowAirports(IEnumerable<Airport> airports)
+        {
+            // Здесь заюзай функцию, которая у тебя аэропорты показывает
+            // Можешь своему списку присвоить список который пришел и потом свою функцию вызвать
+            // Не смотрел как у тебя там работает
+        }
+        
+        public Airport AddingAirport
+        {
+            get
+            {
+                return new Airport
+                {
+                    Id = 0,
+                    Name = , // Поле где лежит Name при добавлении т.е. label.text или чё там
+                    Code = , // Поле где лежит Code при добавлении
+                    Runways = , // И т.д.
+                    SoldTickets = ,
+                    AverageVisitors = ,
+                    MonthlyIncome = ,
+                    IncidentsCount = ,
+                };
+            }
+            set
+            {
+                // Тут делаешь наоборот, т.е. присваиваешь этим UI полям как раз имеющиеся значения
+                /* Поле где лежит Id при добавлении */ = value.Id,
+                 = value.Name,
+                 = value.Code,
+                 = value.Runways,
+                 = value.SoldTickets,
+                 = value.AverageVisitors,
+                 = value.MonthlyIncome,
+                 = value.IncidentsCount
+                // Что из этого нахуй не нужно - убирай, твоя задача - подставить UI поля до '='
+            }
+        }
+
+        public Airport ChangingAirport
+        {
+            // По аналогии с верхом делай
+            get
+            {
+                return new Airport
+                {
+                    Id = , // Тут Id тоже присвой из своего списка или где там
+                    Name = , 
+                    Code = ,
+                    Runways = ,
+                    SoldTickets = ,
+                    AverageVisitors = ,
+                    MonthlyIncome = ,
+                    IncidentsCount = ,
+                }
+            }
+            set
+            {
+                = value.Id,
+                = value.Name,
+                = value.Code,
+                = value.Runways,
+                = value.SoldTickets, 
+                = value.AverageVisitors,
+                = value.MonthlyIncome,
+                = value.IncidentsCount
+            }
         }
     }
 }

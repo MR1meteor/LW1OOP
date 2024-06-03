@@ -2,6 +2,8 @@ using LW1.Data;
 using LW1.Exceptions;
 using LW1.External;
 using LW1.Forms;
+using LW1.Presenters;
+using LW1.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -31,8 +33,11 @@ static class Program
         var context = scope.ServiceProvider.GetRequiredService<DataContext>();
         context.Init();
 
-        NativeMethods.AllocConsole();
-        Application.Run(serviceProvider.GetRequiredService<Forms.MainForm>());
+        var airportRepository = new AirportRepository();
+        var form = new AirportPresenter(airportRepository, new MainForm());
+        var console = new AirportPresenter(airportRepository, new CustomConsole());
+        form.RunView();
+        console.RunView();
     }
 
     private static IHostBuilder CreateHostBuilder()
@@ -72,7 +77,7 @@ static class Program
                     Win32.MessageBox(0, cice.StackTrace, cice.StackTrace, 0);
                     break;
                 case FormatException fe:
-                    Win32.MessageBox(0, "Неверный формат введенных данных", "Ошибка формата ввода", 0);
+                    Win32.MessageBox(0, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ", 0);
                     break;
                 default:
                     Win32.MessageBox(0, ex.Message, "Untyped exception", 0);
