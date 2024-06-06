@@ -175,7 +175,7 @@ namespace LW1.Forms
 
         private async void delBtn_Click(object sender, EventArgs e)
         {
-            // await airportService.Delete(currentAirports[selectedId].Id);
+            airportPresenter.RemoveAirport(currentAirports[selectedId].Id);
             clearTextboxes();
             await updateData();
             message.Message = "Объект удалён";
@@ -185,7 +185,6 @@ namespace LW1.Forms
         private async Task updateData()
         {
             airportsList.Clear();
-            // currentAirports = await airportService.GetAll();
             foreach (var airport in currentAirports)
             {
                 airportsList.Items.Add(airport.Name);
@@ -345,6 +344,11 @@ namespace LW1.Forms
          
         public void ShowAirports(IEnumerable<Airport> airports)
         {
+            IEnumerator<Airport> airportsEnumenator = airports.GetEnumerator();
+            while (airportsEnumenator.MoveNext()) { 
+                currentAirports.Add(airportsEnumenator.Current);
+            }
+            updateData();
             // Здесь заюзай функцию, которая у тебя аэропорты показывает
             // Можешь своему списку присвоить список который пришел и потом свою функцию вызвать
             // Не смотрел как у тебя там работает
@@ -357,26 +361,25 @@ namespace LW1.Forms
                 return new Airport
                 {
                     Id = 0,
-                    Name = , // Поле где лежит Name при добавлении т.е. label.text или чё там
-                    Code = , // Поле где лежит Code при добавлении
-                    Runways = , // И т.д.
-                    SoldTickets = ,
-                    AverageVisitors = ,
-                    MonthlyIncome = ,
-                    IncidentsCount = ,
+                    Name = nameTextbox.Text, // Поле где лежит Name при добавлении т.е. label.text или чё там
+                    Code = checkInt(codeTextbox), // Поле где лежит Code при добавлении
+                    Runways = checkInt(runwaysTextbox), // И т.д.
+                    SoldTickets = checkInt(ticketsTextbox),
+                    AverageVisitors = checkDouble(touristsTextbox),
+                    MonthlyIncome = checkDouble(incomeTextbox),
+                    IncidentsCount = checkInt(incidentsTextbox),
                 };
             }
             set
             {
                 // Тут делаешь наоборот, т.е. присваиваешь этим UI полям как раз имеющиеся значения
-                /* Поле где лежит Id при добавлении */ = value.Id,
-                 = value.Name,
-                 = value.Code,
-                 = value.Runways,
-                 = value.SoldTickets,
-                 = value.AverageVisitors,
-                 = value.MonthlyIncome,
-                 = value.IncidentsCount
+                nameTextbox.Text = value.Name;
+                codeTextbox.Text = value.Code.ToString();
+                runwaysTextbox.Text = value.Runways.ToString();
+                ticketsTextbox.Text = value.SoldTickets.ToString();
+                touristsTextbox.Text = value.AverageVisitors.ToString();
+                incomeTextbox.Text = value.MonthlyIncome.ToString();
+                incidentsTextbox.Text = value.IncidentsCount.ToString();
                 // Что из этого нахуй не нужно - убирай, твоя задача - подставить UI поля до '='
             }
         }
@@ -388,26 +391,25 @@ namespace LW1.Forms
             {
                 return new Airport
                 {
-                    Id = , // Тут Id тоже присвой из своего списка или где там
-                    Name = , 
-                    Code = ,
-                    Runways = ,
-                    SoldTickets = ,
-                    AverageVisitors = ,
-                    MonthlyIncome = ,
-                    IncidentsCount = ,
-                }
+                    Id = selectedId, // Тут Id тоже присвой из своего списка или где там
+                    Name = nameTextbox.Text,
+                    Code = checkInt(codeTextbox),
+                    Runways = checkInt(runwaysTextbox),
+                    SoldTickets = checkInt(ticketsTextbox),
+                    AverageVisitors = checkDouble(touristsTextbox),
+                    MonthlyIncome = checkDouble(incomeTextbox),
+                    IncidentsCount = checkInt(incidentsTextbox),
+                };
             }
             set
             {
-                = value.Id,
-                = value.Name,
-                = value.Code,
-                = value.Runways,
-                = value.SoldTickets, 
-                = value.AverageVisitors,
-                = value.MonthlyIncome,
-                = value.IncidentsCount
+                nameTextbox.Text = value.Name;
+                codeTextbox.Text = value.Code.ToString();
+                runwaysTextbox.Text = value.Runways.ToString();
+                ticketsTextbox.Text = value.SoldTickets.ToString();
+                touristsTextbox.Text = value.AverageVisitors.ToString();
+                incomeTextbox.Text = value.MonthlyIncome.ToString();
+                incidentsTextbox.Text = value.IncidentsCount.ToString();
             }
         }
     }
