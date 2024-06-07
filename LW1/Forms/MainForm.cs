@@ -25,9 +25,7 @@ namespace LW1.Forms
 
         private void addBtnClick(object sender, EventArgs e)
         {
-            radioButton1.Enabled = true;
-            radioButton1.Checked = true;
-            radioButton2.Enabled = true;
+            
             airportsList.Enabled = false;
             saveBtn.Tag = "add";
             clearTextboxes();
@@ -42,7 +40,6 @@ namespace LW1.Forms
             codeTextbox.Text = "";
             runwaysTextbox.Text = "";
             touristsTextbox.Text = "";
-            AACheckbox.Checked = false;
             ticketsTextbox.Text = "";
             incomeTextbox.Text = "";
             incidentsTextbox.Text = "";
@@ -54,8 +51,6 @@ namespace LW1.Forms
             if (saveBtn.Tag.ToString() == "add")
             {
                 addAirport();
-                radioButton1.Enabled = false;
-                radioButton2.Enabled = false;
             }
             else if (saveBtn.Tag.ToString() == "save")
             {
@@ -74,70 +69,41 @@ namespace LW1.Forms
             airportsList.View = View.List;
             saveBtn.Tag = "save";
             saveBtn.Text = "Сохранить";
-            await updateData();
+            airportPresenter.ShowAirports();
         }
 
         private async void addAirport()
         {
             Airport newAirport;
-            // if (radioButton1.Checked)
-            // {
-            //     
-            //     if (string.IsNullOrEmpty(nameTextbox.Text))
-            //     {
-            //         nameTextbox.BackColor = Color.Coral;
-            //         return;
-            //     }
-            //     else if (string.IsNullOrEmpty(codeTextbox.Text))
-            //     {
-            //         codeTextbox.BackColor = Color.Coral;
-            //         return;
-            //     }
-            //     else if (string.IsNullOrEmpty(runwaysTextbox.Text) && string.IsNullOrEmpty(touristsTextbox.Text) && string.IsNullOrEmpty(ticketsTextbox.Text) &&
-            //         string.IsNullOrEmpty(incomeTextbox.Text) && string.IsNullOrEmpty(incidentsTextbox.Text))
-            //     {
-            //
-            //         newAirport = civilAirportsFactory.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
-            //     }
-            //     else
-            //     {
-            //
-            //         newAirport = (CivilAirport)civilAirportsFactory.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
-            //             checkInt(incidentsTextbox), checkInt(ticketsTextbox), checkDouble(touristsTextbox), checkDouble(incomeTextbox));
-            //     }
-            // }
-            // else
-            // {
-            //     if (string.IsNullOrEmpty(nameTextbox.Text))
-            //     {
-            //         nameTextbox.BackColor = Color.Coral;
-            //         return;
-            //     }
-            //     else if (string.IsNullOrEmpty(codeTextbox.Text))
-            //     {
-            //         codeTextbox.BackColor = Color.Coral;
-            //         return;
-            //     }
-            //     else if (string.IsNullOrEmpty(runwaysTextbox.Text) && string.IsNullOrEmpty(touristsTextbox.Text) && string.IsNullOrEmpty(ticketsTextbox.Text) &&
-            //         string.IsNullOrEmpty(incomeTextbox.Text) && string.IsNullOrEmpty(incidentsTextbox.Text))
-            //     {
-            //
-            //         newAirport = militaryAirportsFactory.CreateAirport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
-            //     }
-            //     else
-            //     {
-            //
-            //         newAirport = militaryAirportsFactory.CreateAirport(nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
-            //             checkInt(incidentsTextbox), ticketsTextbox.Text, AACheckbox.Checked, checkInt(incomeTextbox));
-            //     }
-            // }
+                if (string.IsNullOrEmpty(nameTextbox.Text))
+                {
+                    nameTextbox.BackColor = Color.Coral;
+                    return;
+                }
+                else if (string.IsNullOrEmpty(codeTextbox.Text))
+                {
+                    codeTextbox.BackColor = Color.Coral;
+                    return;
+                }
+                else if (string.IsNullOrEmpty(runwaysTextbox.Text) && string.IsNullOrEmpty(touristsTextbox.Text) && string.IsNullOrEmpty(ticketsTextbox.Text) &&
+                    string.IsNullOrEmpty(incomeTextbox.Text) && string.IsNullOrEmpty(incidentsTextbox.Text))
+                {
+
+                    newAirport = new Airport(nameTextbox.Text, Int32.Parse(codeTextbox.Text));
+                }
+                else
+                {
+
+                    newAirport = new Airport(0, nameTextbox.Text, checkInt(codeTextbox), checkInt(runwaysTextbox),
+                        checkInt(ticketsTextbox), checkDouble(touristsTextbox), checkDouble(incomeTextbox), checkInt(incidentsTextbox));
+                }
             message.Message = "Объект добавлен";
             OnEvent?.Invoke(this, message);
-            //await airportService.Add(newAirport);
+            airportPresenter.SetAdding(newAirport);
             nameTextbox.BackColor = DefaultBackColor;
             codeTextbox.BackColor = DefaultBackColor;
             saveBtn.Tag = "save";
-            await updateData();
+            airportPresenter.ShowAirports();
             airportsList.Enabled = true;
             addBtn.Enabled = true;
             delBtn.Show();
@@ -161,10 +127,19 @@ namespace LW1.Forms
                 nameTextbox.BackColor = Color.Coral;
                 return;
             }
+            if(codeTextbox.Text == "")
+            {
+                codeTextbox.BackColor= Color.Coral;
+                return;
+            }
+            airportPresenter.SetChanging(currentAirport);
+            airportPresenter.ChangeAirport();
+            nameTextbox.BackColor = DefaultBackColor;
+            codeTextbox.BackColor = DefaultBackColor;
             editModeBtn.Enabled = true;
             message.Message = "Объект сохранён";
             OnEvent?.Invoke(this, message);
-            await updateData();
+            airportPresenter.ShowAirports();
         }
         private void editAirport(object sender, EventArgs e)
         {
@@ -177,7 +152,7 @@ namespace LW1.Forms
         {
             airportPresenter.RemoveAirport(currentAirports[selectedId].Id);
             clearTextboxes();
-            await updateData();
+            airportPresenter.ShowAirports();
             message.Message = "Объект удалён";
             OnEvent?.Invoke(this, message);
         }
@@ -198,7 +173,7 @@ namespace LW1.Forms
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            await updateData();
+            airportPresenter.ShowAirports();
         }
 
         private void SelectedItemChanged(object sender, EventArgs e)
@@ -288,36 +263,6 @@ namespace LW1.Forms
             string[] item = { container, type, time.ToString() };
             var listViewItem = new ListViewItem(item);
             airportsList.Items.Add(listViewItem);
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            millitaryMode();
-        }
-
-
-
-        private void millitaryMode()
-        {
-            ticketsLabel.Text = "Военный округ";
-            touristsLabel.Text = "Наличие ПВО";
-            incomeLabel.Text = "Количество самолётов";
-            AACheckbox.Show();
-            touristsTextbox.Hide();
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            civilMode();
-        }
-
-        private void civilMode()
-        {
-            ticketsLabel.Text = "Продано билетов";
-            touristsLabel.Text = "Средний турпоток";
-            incomeLabel.Text = "Доход за месяц";
-            touristsTextbox.Show();
-            AACheckbox.Hide();
         }
 
         public void SetPresenter(AirportPresenter airportPresenter)
