@@ -132,6 +132,13 @@ namespace LW1.Forms
                 codeTextbox.BackColor= Color.Coral;
                 return;
             }
+            currentAirport.Name = nameTextbox.Text;
+            currentAirport.Code = checkInt(codeTextbox);
+            currentAirport.Runways = checkInt(runwaysTextbox);
+            currentAirport.SoldTickets = checkInt(ticketsTextbox);
+            currentAirport.AverageVisitors = checkDouble(touristsTextbox);
+            currentAirport.MonthlyIncome = checkDouble(incomeTextbox);
+            currentAirport.IncidentsCount = checkInt(incidentsTextbox);
             airportPresenter.SetChanging(currentAirport);
             airportPresenter.ChangeAirport();
             nameTextbox.BackColor = DefaultBackColor;
