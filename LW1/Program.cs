@@ -20,7 +20,7 @@ static class Program
 
         using var scope = host.Services.CreateScope();
         
-        Application.Run(serviceProvider.GetRequiredService<Form1>());
+        Application.Run(serviceProvider.GetRequiredService<OPP_LB6>());
     }
 
     private static IHostBuilder CreateHostBuilder()
@@ -28,7 +28,7 @@ static class Program
         return Host.CreateDefaultBuilder()
             .ConfigureServices((context, services)=>
             {
-                services.AddTransient<Form1>();
+                services.AddTransient<OPP_LB6>();
             });
     }
 }
