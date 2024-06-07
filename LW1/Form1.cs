@@ -57,6 +57,7 @@ public partial class OPP_LB6 : Form
         IEnumerable<int> vector = GenerateRandomEnumerable(10);
         long sum = 0;
         ListViewItem startText = new();
+        SumCalcLogs.Items.Clear();
         SumCalcLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]1: Запуск функции суммирования элементов вектора"));
         foreach (var value in vector)
         {
@@ -70,17 +71,18 @@ public partial class OPP_LB6 : Form
 
     private void GetCurrentTime()
     {
-        ListViewItem startText = new($"[{DateTime.Now.ToString()}]2: Запуск функции отображения времени");
-        SysTimeLogs.Items.Add(startText);
+        SysTimeLogs.Items.Clear();
+        SysTimeLogs.Items.Add($"[{DateTime.Now.ToString()}]2: Запуск функции отображения времени");
         var time = DateTime.Now;
         SysTimeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]2: Завершение функции отображения времени"));
         SysTimeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]2: {time}"));
-        SysTimeLogs.Show();
+        
         // Здесь форматированный вывод результата time
     }
 
     private void CountToThree()
     {
+        CountToThreeLogs.Items.Clear();
         CountToThreeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]3: Запуск функции счёта до 3х"));
         var times = new List<DateTime>();
         for (int i = 0; i < 3; i++)
@@ -98,17 +100,17 @@ public partial class OPP_LB6 : Form
 
     private void SumCalc_Click(object sender, EventArgs e)
     {
-
+        CalculateSum();
     }
 
     private void CountThree_Click(object sender, EventArgs e)
     {
-
+        CountToThree();
     }
 
     private void ShowSysTime_Click(object sender, EventArgs e)
     {
-       
+       GetCurrentTime();
 
     }
 }

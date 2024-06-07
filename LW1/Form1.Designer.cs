@@ -44,25 +44,28 @@ partial class OPP_LB6
         // 
         SumCalcLogs.Location = new Point(8, 63);
         SumCalcLogs.Name = "SumCalcLogs";
-        SumCalcLogs.Size = new Size(228, 375);
+        SumCalcLogs.Size = new Size(228, 184);
         SumCalcLogs.TabIndex = 0;
         SumCalcLogs.UseCompatibleStateImageBehavior = false;
+        SumCalcLogs.View = View.List;
         // 
         // SysTimeLogs
         // 
         SysTimeLogs.Location = new Point(264, 63);
         SysTimeLogs.Name = "SysTimeLogs";
-        SysTimeLogs.Size = new Size(251, 375);
+        SysTimeLogs.Size = new Size(251, 184);
         SysTimeLogs.TabIndex = 1;
         SysTimeLogs.UseCompatibleStateImageBehavior = false;
+        SysTimeLogs.View = View.List;
         // 
         // CountToThreeLogs
         // 
         CountToThreeLogs.Location = new Point(549, 63);
         CountToThreeLogs.Name = "CountToThreeLogs";
-        CountToThreeLogs.Size = new Size(239, 375);
+        CountToThreeLogs.Size = new Size(239, 184);
         CountToThreeLogs.TabIndex = 2;
         CountToThreeLogs.UseCompatibleStateImageBehavior = false;
+        CountToThreeLogs.View = View.List;
         // 
         // SumCalc
         // 
