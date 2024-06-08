@@ -44,34 +44,34 @@ partial class OPP_LB6
         // 
         SumCalcLogs.Location = new Point(8, 63);
         SumCalcLogs.Name = "SumCalcLogs";
-        SumCalcLogs.Size = new Size(228, 184);
+        SumCalcLogs.Size = new Size(315, 184);
         SumCalcLogs.TabIndex = 0;
         SumCalcLogs.UseCompatibleStateImageBehavior = false;
         SumCalcLogs.View = View.List;
         // 
         // SysTimeLogs
         // 
-        SysTimeLogs.Location = new Point(264, 63);
+        SysTimeLogs.Location = new Point(345, 63);
         SysTimeLogs.Name = "SysTimeLogs";
-        SysTimeLogs.Size = new Size(251, 184);
+        SysTimeLogs.Size = new Size(315, 184);
         SysTimeLogs.TabIndex = 1;
         SysTimeLogs.UseCompatibleStateImageBehavior = false;
         SysTimeLogs.View = View.List;
         // 
         // CountToThreeLogs
         // 
-        CountToThreeLogs.Location = new Point(549, 63);
+        CountToThreeLogs.Location = new Point(682, 63);
         CountToThreeLogs.Name = "CountToThreeLogs";
-        CountToThreeLogs.Size = new Size(239, 184);
+        CountToThreeLogs.Size = new Size(315, 184);
         CountToThreeLogs.TabIndex = 2;
         CountToThreeLogs.UseCompatibleStateImageBehavior = false;
         CountToThreeLogs.View = View.List;
         // 
         // SumCalc
         // 
-        SumCalc.Location = new Point(156, 12);
+        SumCalc.Location = new Point(198, 12);
         SumCalc.Name = "SumCalc";
-        SumCalc.Size = new Size(80, 45);
+        SumCalc.Size = new Size(125, 45);
         SumCalc.TabIndex = 3;
         SumCalc.Text = "Вычислить сумму";
         SumCalc.UseVisualStyleBackColor = true;
@@ -79,9 +79,9 @@ partial class OPP_LB6
         // 
         // ShowSysTime
         // 
-        ShowSysTime.Location = new Point(264, 12);
+        ShowSysTime.Location = new Point(345, 12);
         ShowSysTime.Name = "ShowSysTime";
-        ShowSysTime.Size = new Size(251, 45);
+        ShowSysTime.Size = new Size(315, 45);
         ShowSysTime.TabIndex = 4;
         ShowSysTime.Text = "Показать время";
         ShowSysTime.UseVisualStyleBackColor = true;
@@ -89,9 +89,9 @@ partial class OPP_LB6
         // 
         // CountThree
         // 
-        CountThree.Location = new Point(549, 12);
+        CountThree.Location = new Point(682, 12);
         CountThree.Name = "CountThree";
-        CountThree.Size = new Size(239, 45);
+        CountThree.Size = new Size(315, 45);
         CountThree.TabIndex = 5;
         CountThree.Text = "Счёт до 3х";
         CountThree.UseVisualStyleBackColor = true;
@@ -119,7 +119,7 @@ partial class OPP_LB6
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(1004, 450);
         Controls.Add(label1);
         Controls.Add(ArrSize);
         Controls.Add(CountThree);

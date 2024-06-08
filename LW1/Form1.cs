@@ -58,13 +58,13 @@ public partial class OPP_LB6 : Form
         long sum = 0;
         ListViewItem startText = new();
         SumCalcLogs.Items.Clear();
-        SumCalcLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]1: Запуск функции суммирования элементов вектора"));
+        SumCalcLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString("HH:mm:ss")}] Запуск функции суммирования элементов вектора"));
         foreach (var value in vector)
         {
             sum += value;
         }
-        SumCalcLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]1: Завершение функции суммирования элементов вектора"));
-        SumCalcLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]1: {sum}"));
+        SumCalcLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString("HH:mm:ss")}] Завершение функции суммирования элементов вектора"));
+        SumCalcLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString("HH:mm:ss")}] {sum}"));
 
         // Здесь форматированны вывод результата sum
     }
@@ -72,28 +72,38 @@ public partial class OPP_LB6 : Form
     private void GetCurrentTime()
     {
         SysTimeLogs.Items.Clear();
-        SysTimeLogs.Items.Add($"[{DateTime.Now.ToString()}]2: Запуск функции отображения времени");
+        SysTimeLogs.Items.Add($"[{DateTime.Now.ToString("HH:mm:ss")}] Запуск функции отображения времени");
         var time = DateTime.Now;
-        SysTimeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]2: Завершение функции отображения времени"));
-        SysTimeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]2: {time}"));
+        SysTimeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString("HH:mm:ss")}] Завершение функции отображения времени"));
+        SysTimeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString("HH:mm:ss")}] {time}"));
         
         // Здесь форматированный вывод результата time
     }
 
-    private void CountToThree()
+    private async Task CountToThree()
     {
         CountToThreeLogs.Items.Clear();
-        CountToThreeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]3: Запуск функции счёта до 3х"));
+        CountToThreeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString("HH:mm:ss")}] Запуск функции счёта до 3х"));
         var times = new List<DateTime>();
-        for (int i = 0; i < 3; i++)
+
+        var tasks = new Task[3];
+
+        for (int i = 1; i <= tasks.Length; i++)
         {
-            Task.Delay(1000);
-            times.Add(DateTime.Now);
+            tasks[i - 1] = new Task(async () =>
+            {
+                await Task.Delay(1000 * i);
+                CountToThreeLogs.Invoke(logs => logs.Items.Add($"[{DateTime.Now.ToString("HH:mm:ss")}] Конец отсчёта"));
+            });
         }
-        CountToThreeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]3: Завершение функции счёта до 3х"));
-        foreach (var value in times) {
-            CountToThreeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString()}]3: {value}"));
+
+        foreach (var task in tasks)
+        {
+            task.Start();
         }
+
+        await Task.WhenAll(tasks);
+        CountToThreeLogs.Items.Add(new ListViewItem($"[{DateTime.Now.ToString("HH:mm:ss")}] Завершение функции счёта до 3х"));
 
         // Здесь форматированный вывод результата times через foreach
     }
@@ -112,5 +122,17 @@ public partial class OPP_LB6 : Form
     {
        GetCurrentTime();
 
+    }
+}
+
+public static class Extensions
+{
+    public static void Invoke<TControlType>(this TControlType control, Action<TControlType> del)
+        where TControlType : Control
+    {
+        if (control.InvokeRequired)
+            control.Invoke(new Action(() => del(control)));
+        else
+            del(control);
     }
 }
