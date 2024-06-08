@@ -48,7 +48,7 @@ static class Program
             task.Start();
         }
 
-        Task.WaitAll(tasks);
+        Task.WaitAny(tasks);
     }
 
     private static IHostBuilder CreateHostBuilder()
