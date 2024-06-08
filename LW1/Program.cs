@@ -36,8 +36,19 @@ static class Program
         var airportRepository = new AirportRepository();
         var form = new AirportPresenter(airportRepository, new MainForm());
         var console = new AirportPresenter(airportRepository, new CustomConsole());
-        form.RunView();
-        console.RunView();
+
+        var tasks = new Task[2]
+        {
+            new Task(form.RunView),
+            new Task(console.RunView)
+        };
+
+        foreach ( var task in tasks )
+        {
+            task.Start();
+        }
+
+        Task.WaitAll(tasks);
     }
 
     private static IHostBuilder CreateHostBuilder()

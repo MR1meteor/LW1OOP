@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using LW1.Event;
 using LW1.EventArgsModels;
 using LW1.Presenters;
+using LW1.Repositories;
 using LW1.Views;
 
 namespace LW1.Forms
@@ -100,10 +102,10 @@ namespace LW1.Forms
             message.Message = "Объект добавлен";
             OnEvent?.Invoke(this, message);
             airportPresenter.SetAdding(newAirport);
+            airportPresenter.AddAirport();
             nameTextbox.BackColor = DefaultBackColor;
             codeTextbox.BackColor = DefaultBackColor;
             saveBtn.Tag = "save";
-            airportPresenter.ShowAirports();
             airportsList.Enabled = true;
             addBtn.Enabled = true;
             delBtn.Show();
@@ -121,7 +123,7 @@ namespace LW1.Forms
 
         private async void saveAirport()
         {
-           var currentAirport = currentAirports[selectedId];
+            var currentAirport = currentAirports[selectedId];
             if (nameTextbox.Text == "")
             {
                 nameTextbox.BackColor = Color.Coral;
@@ -146,7 +148,6 @@ namespace LW1.Forms
             editModeBtn.Enabled = true;
             message.Message = "Объект сохранён";
             OnEvent?.Invoke(this, message);
-            airportPresenter.ShowAirports();
         }
         private void editAirport(object sender, EventArgs e)
         {
@@ -164,9 +165,10 @@ namespace LW1.Forms
             OnEvent?.Invoke(this, message);
         }
 
-        private async Task updateData()
+        private void updateData(IEnumerable<Airport> airports)
         {
             airportsList.Clear();
+            currentAirports = airports.ToList();
             foreach (var airport in currentAirports)
             {
                 airportsList.Items.Add(airport.Name);
@@ -277,11 +279,11 @@ namespace LW1.Forms
             this.airportPresenter = airportPresenter;
         }
          public void Run()
-         {
+        {
             Application.Run(this);
-         }
-         
-         
+        }
+
+
         /*
 
         ИСПОЛЬЗУЙ ФУНКЦИИ ИЗ airportPresenter (новое поле у тебя в форме) ДЛЯ РАБОТЫ С ОБЪЕКТАМИ
@@ -296,11 +298,7 @@ namespace LW1.Forms
          
         public void ShowAirports(IEnumerable<Airport> airports)
         {
-            IEnumerator<Airport> airportsEnumenator = airports.GetEnumerator();
-            while (airportsEnumenator.MoveNext()) { 
-                currentAirports.Add(airportsEnumenator.Current);
-            }
-            updateData();
+            updateData(airports);
             // Здесь заюзай функцию, которая у тебя аэропорты показывает
             // Можешь своему списку присвоить список который пришел и потом свою функцию вызвать
             // Не смотрел как у тебя там работает
