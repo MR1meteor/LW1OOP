@@ -60,6 +60,6 @@
 
     public override string ToString()
     {
-        return $"{Id} | {Name} | {Code}| {Runways} | {SoldTickets} | {AverageVisitors} | {MonthlyIncome} | {IncidentsCount} ";
+        return $"{Id} | {Name} | {Code} | {Runways} | {SoldTickets} | {AverageVisitors} | {MonthlyIncome} | {IncidentsCount}";
     }
 }

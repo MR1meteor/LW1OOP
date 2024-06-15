@@ -113,8 +113,9 @@ public class CustomConsole : IAirportView
 
     public void ShowAirports(IEnumerable<Airport> airports)
     {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.WriteLine("-----");
-        Console.WriteLine("Airports list:");
+        Console.WriteLine("Список аэропортов:");
         foreach (var airport in airports)
         {
             Console.WriteLine(airport);
@@ -122,7 +123,7 @@ public class CustomConsole : IAirportView
 
         if (airports.Count() == 0)
         {
-            Console.WriteLine("No airports");
+            Console.WriteLine("Нет аэропортов");
         }
 
         Console.WriteLine("-----");
@@ -134,11 +135,12 @@ public class CustomConsole : IAirportView
         WinConsole.Initialize();
         listenerEvent += () =>
         {
-            Console.WriteLine("Commands list:");
-            Console.WriteLine("1. Show airports");
-            Console.WriteLine("2. Add airport");
-            Console.WriteLine("3. Change airport");
-            Console.WriteLine("4. Delete airport");
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine("Список команд:");
+            Console.WriteLine("1. Посмотреть аэропорты");
+            Console.WriteLine("2. Добавить аэропорт");
+            Console.WriteLine("3. Изменить аэропорт");
+            Console.WriteLine("4. Удалить аэропорт");
 
             var command = Console.ReadLine();
             switch (command)
@@ -153,11 +155,11 @@ public class CustomConsole : IAirportView
                     airportPresenter.ChangeAirport();
                     break;
                 case "4":
-                    Console.WriteLine("Enter airport id");
+                    Console.WriteLine("Введите id аэропорта");
                     airportPresenter.RemoveAirport(Int32.Parse(Console.ReadLine()));
                     break;
                 default:
-                    Console.WriteLine("Enter command number from list below");
+                    Console.WriteLine("Введите номер команды из списка ниже");
                     listenerEvent.Invoke();
                     break;
             }
@@ -171,24 +173,25 @@ public class CustomConsole : IAirportView
             var airport = new Airport();
             var input = "";
 
-            Console.WriteLine("Enter airport name");
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine("Введите название аэропорта");
             airport.Name = Console.ReadLine();
-            Console.WriteLine("Enter airport code");
+            Console.WriteLine("Введите код аэропорта");
             input = Console.ReadLine();
             airport.Code = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
-            Console.WriteLine("Enter airport runways count");
+            Console.WriteLine("Введите количество полос аэропорта");
             input = Console.ReadLine();
             airport.Runways = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
-            Console.WriteLine("Enter airport sold tickets count");
+            Console.WriteLine("Введите количество проданых билетов в аэропорте");
             input = Console.ReadLine();
             airport.SoldTickets = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
-            Console.WriteLine("Enter the average number of airport visitors");
+            Console.WriteLine("Введите средний турпоток аэропорта");
             input = Console.ReadLine();
-            airport.AverageVisitors = Double.TryParse(input, out var _) ? Convert.ToDouble(Console.ReadLine()) : 0;
-            Console.WriteLine("Enter the airport monthly profit");
+            airport.AverageVisitors = Double.TryParse(input, out var _) ? Convert.ToDouble(input) : 0;
+            Console.WriteLine("Введите среднемесячный доход аэропорта");
             input = Console.ReadLine();
-            airport.MonthlyIncome = Double.TryParse(input, out var _) ? Convert.ToDouble(Console.ReadLine()) : 0;
-            Console.WriteLine("Enter the number of incidents at the airport");
+            airport.MonthlyIncome = Double.TryParse(input, out var _) ? Convert.ToDouble(input) : 0;
+            Console.WriteLine("Введите количество инцидентов в аэропорте");
             input = Console.ReadLine();
             airport.IncidentsCount = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
 
@@ -204,21 +207,29 @@ public class CustomConsole : IAirportView
         get
         {
             var airport = new Airport();
+            var input = "";
             
-            Console.WriteLine("Enter airport name");
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine("Введите название аэропорта");
             airport.Name = Console.ReadLine();
-            Console.WriteLine("Enter airport code");
-            airport.Code = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Enter airport runways count");
-            airport.Runways = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Enter airport sold tickets count");
-            airport.SoldTickets = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Enter the average number of airport visitors");
-            airport.AverageVisitors = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Enter the airport monthly profit");
-            airport.MonthlyIncome = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Enter the number of incidents at the airport");
-            airport.IncidentsCount = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Введите код аэропорта");
+            input = Console.ReadLine();
+            airport.Code = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
+            Console.WriteLine("Введите количество полос аэропорта");
+            input = Console.ReadLine();
+            airport.Runways = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
+            Console.WriteLine("Введите количество проданых билетов в аэропорте");
+            input = Console.ReadLine();
+            airport.SoldTickets = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
+            Console.WriteLine("Введите средний турпоток аэропорта");
+            input = Console.ReadLine();
+            airport.AverageVisitors = Double.TryParse(input, out var _) ? Convert.ToDouble(input) : 0;
+            Console.WriteLine("Введите среднемесячный доход аэропорта");
+            input = Console.ReadLine();
+            airport.MonthlyIncome = Double.TryParse(input, out var _) ? Convert.ToDouble(input) : 0;
+            Console.WriteLine("Введите количество инцидентов в аэропорте");
+            input = Console.ReadLine();
+            airport.IncidentsCount = Int32.TryParse(input, out var _) ? Int32.Parse(input) : 0;
 
             return airport;
         }
